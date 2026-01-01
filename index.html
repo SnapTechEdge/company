@@ -1,46 +1,105 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>SnapTechEdge</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapTechEdge | Innovation for Mobile & Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
 
-  <h1>SnapTechEdge</h1>
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tight text-blue-600">SnapTechEdge</div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#services" class="hover:text-blue-600 transition">Services</a>
+                <a href="#info" class="hover:text-blue-600 transition">Info</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-  <p>
-    SnapTechEdge は、モバイルアプリケーションおよび Web サービスの企画・開発を行う組織です。
-  </p>
+    <!-- Hero Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
+                次世代のデジタル体験を<br><span class="text-blue-600">Snap</span>する。
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10">
+                SnapTechEdge は、モバイルアプリケーションおよび Web サービスの企画・開発を行うプロフェッショナル集団です。
+                ユーザーの日常に溶け込む、革新的なソリューションを提供します。
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
 
-  <h2>事業内容</h2>
-  <ul>
-    <li>iOS / Android アプリケーションの企画・開発</li>
-    <li>Web アプリケーションの設計・開発</li>
-    <li>ソフトウェアおよびデジタルサービスの提供</li>
-  </ul>
+    <!-- Services -->
+    <section id="services" class="py-20 bg-white border-y border-slate-200 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">事業内容</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition">
+                    <div class="text-blue-600 text-3xl mb-4">📱</div>
+                    <h3 class="text-xl font-bold mb-3">App Development</h3>
+                    <p class="text-slate-600 text-sm">iOS / Android アプリケーションの企画、設計、開発、運用までを一貫してサポート。</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition">
+                    <div class="text-blue-600 text-3xl mb-4">💻</div>
+                    <h3 class="text-xl font-bold mb-3">Web Solutions</h3>
+                    <p class="text-slate-600 text-sm">最新の技術スタックを用いた高機能な Web アプリケーションの設計・開発。</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition">
+                    <div class="text-blue-600 text-3xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold mb-3">Digital Service</h3>
+                    <p class="text-slate-600 text-sm">ユーザー体験を重視した自社ソフトウェアおよびデジタルサービスの提供。</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <h2>組織情報</h2>
-  <p>
-    組織名：SnapTechEdge<br>
-    所在地：Japan
-  </p>
+    <!-- Organization Info -->
+    <section id="info" class="py-20 px-6">
+        <div class="max-w-3xl mx-auto bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+                <span class="w-2 h-8 bg-blue-600 rounded-full"></span> 組織情報
+            </h2>
+            <dl class="grid grid-cols-1 gap-y-6">
+                <div class="flex flex-col sm:flex-row sm:border-b border-slate-100 pb-4">
+                    <dt class="w-40 font-semibold text-slate-500">組織名</dt>
+                    <dd class="text-slate-900 font-medium text-lg">SnapTechEdge</dd>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:border-b border-slate-100 pb-4">
+                    <dt class="w-40 font-semibold text-slate-500">所在地</dt>
+                    <dd class="text-slate-900 font-medium">日本（所在地詳細は D-U-N-S® 登録情報に基づきます）</dd>
+                </div>
+                <div class="flex flex-col sm:flex-row">
+                    <dt class="w-40 font-semibold text-slate-500">お問い合わせ</dt>
+                    <dd class="text-blue-600 font-medium">
+                        <a href="mailto:contact@snaptechedge.com" class="hover:underline">contact@snaptechedge.com</a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </section>
 
-  <h2>お問い合わせ</h2>
-  <p>
-    Email:
-    <a href="mailto:contact@snaptechedge.com">
-      contact@snaptechedge.com
-    </a>
-  </p>
-
-  <p>
-    <a href="privacy.html">プライバシーポリシー</a>
-  </p>
-
-  <footer>
-    <p>© 2026 SnapTechEdge</p>
-  </footer>
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-900 text-slate-400 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white font-bold text-xl text-center md:text-left">SnapTechEdge</div>
+            <div class="flex gap-6 text-sm">
+                <a href="privacy.html" class="hover:text-white transition">プライバシーポリシー</a>
+            </div>
+            <p class="text-xs">&copy; 2026 SnapTechEdge. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
