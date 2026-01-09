@@ -6,128 +6,150 @@
   <title>プライバシーポリシー | SnapTechEdge</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-50">
-  <!-- 背景 -->
-  <div class="fixed inset-0 -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"></div>
+<body class="bg-white text-slate-800 antialiased">
+  <!-- 背景装飾 -->
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-60"></div>
+    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-cyan-100 rounded-full blur-3xl opacity-50"></div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+  <div class="max-w-3xl mx-auto px-6 py-8">
     <!-- ヘッダー -->
-    <header class="flex items-center justify-between gap-4 mb-6">
-      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-slate-200 hover:text-white transition">
-        <span class="text-lg">←</span>
+    <header class="flex items-center justify-between mb-10">
+      <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
         <span>トップページに戻る</span>
       </a>
-      <a href="index.html" class="hidden sm:flex items-center gap-2">
-        <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-[10px] font-bold">
-          ST
-        </div>
-        <span class="text-xs text-slate-300">SnapTechEdge</span>
+      <a href="index.html" class="text-lg font-bold text-slate-900">
+        SnapTechEdge
       </a>
     </header>
 
-    <!-- 本文カード -->
-    <main class="bg-slate-950/70 border border-slate-800 rounded-3xl shadow-xl p-6 sm:p-8 md:p-10">
-      <header class="mb-8">
-        <p class="text-xs font-mono text-blue-300 mb-2 tracking-[0.2em] uppercase">Policy</p>
-        <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight mb-3">プライバシーポリシー</h1>
-        <p class="text-sm text-slate-300 leading-relaxed">
-          SnapTechEdge（以下、「当組織」）は、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）を遵守し、
-          以下の通りプライバシーポリシーを定めます。当組織が提供するサービス（以下「本サービス」といいます。）における、
-          ユーザーの個人情報の取扱いについて、適切に管理・保護することに努めます。
+    <!-- 本文 -->
+    <main class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 sm:p-10">
+      <header class="mb-10">
+        <p class="text-sm font-medium text-blue-600 mb-2">Policy</p>
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">プライバシーポリシー</h1>
+        <p class="text-slate-600 leading-relaxed">
+          SnapTechEdge（以下「当組織」）は、個人情報の保護に関する法律を遵守し、以下の通りプライバシーポリシーを定めます。当組織が提供するサービスにおける、ユーザーの個人情報の取扱いについて、適切に管理・保護することに努めます。
         </p>
       </header>
 
-      <section class="space-y-8 text-sm leading-relaxed text-slate-200">
-        <!-- 1 -->
+      <div class="space-y-8">
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">1. 収集する情報</h2>
-          <p class="mb-3 text-slate-300">
-            当組織は、本サービスにおいて、以下の情報を取得する場合があります。
-          </p>
-          <ul class="list-disc list-inside space-y-1 text-slate-300">
-            <li>氏名、メールアドレス等の連絡先情報</li>
-            <li>お問い合わせ内容に関する詳細情報</li>
-            <li>本サービスの利用状況、アクセスログ情報</li>
-            <li>Cookieおよびこれに類する技術を用いた識別情報</li>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">1</span>
+            収集する情報
+          </h2>
+          <p class="text-slate-600 mb-3">当組織は、以下の情報を取得する場合があります。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4">
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              氏名、メールアドレス等の連絡先情報
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              お問い合わせ内容に関する詳細情報
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              サービスの利用状況、アクセスログ情報
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              Cookieおよびこれに類する技術を用いた識別情報
+            </li>
           </ul>
         </section>
 
-        <!-- 2 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">2. 利用目的</h2>
-          <p class="mb-3 text-slate-300">
-            取得した個人情報は、以下の目的のためにのみ利用し、法令により認められる場合を除き、目的外の利用は行いません。
-          </p>
-          <ul class="list-disc list-inside space-y-1 text-slate-300">
-            <li>本サービスに関するお問い合わせへの回答および通知</li>
-            <li>本サービスの提供、維持、保護および改善</li>
-            <li>規約違反行為への対応および不正利用の防止</li>
-            <li>当組織の提供する新サービスやアップデート等のご案内</li>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">2</span>
+            利用目的
+          </h2>
+          <p class="text-slate-600 mb-3">取得した個人情報は、以下の目的のためにのみ利用します。</p>
+          <ul class="text-slate-600 space-y-1.5 ml-4">
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              サービスに関するお問い合わせへの回答および通知
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              サービスの提供、維持、保護および改善
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              規約違反行為への対応および不正利用の防止
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 mt-1.5">•</span>
+              新サービスやアップデート等のご案内
+            </li>
           </ul>
         </section>
 
-        <!-- 3 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">3. 安全管理措置</h2>
-          <p class="text-slate-300">
-            当組織は、個人情報の漏えい、滅失または毀損の防止その他の個人情報の安全管理のために、適切な組織的、人的、
-            技術的施策を講じます。また、個人情報の取扱いを外部に委託する場合には、委託先に対して必要かつ適切な監督を行います。
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">3</span>
+            安全管理措置
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            当組織は、個人情報の漏えい、滅失または毀損の防止のために、適切な組織的、人的、技術的施策を講じます。
           </p>
         </section>
 
-        <!-- 4 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">4. 第三者提供</h2>
-          <p class="text-slate-300">
-            当組織は、個人情報保護法その他の法令に基づき開示が認められる場合を除き、あらかじめユーザーの同意を得ることなく、
-            個人情報を第三者に提供することはありません。
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">4</span>
+            第三者提供
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            当組織は、法令に基づき開示が認められる場合を除き、あらかじめユーザーの同意を得ることなく、個人情報を第三者に提供することはありません。
           </p>
         </section>
 
-        <!-- 5 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">5. 個人情報の開示・訂正・利用停止等</h2>
-          <p class="text-slate-300">
-            ユーザーから個人情報の開示、訂正、追加、削除、利用停止、消去等の請求があった場合には、ご本人であることを確認の上、
-            個人情報保護法の定めに従い、遅滞なく対応いたします。
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">5</span>
+            個人情報の開示・訂正・利用停止等
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            ユーザーから個人情報の開示、訂正、削除、利用停止等の請求があった場合には、ご本人であることを確認の上、遅滞なく対応いたします。
           </p>
         </section>
 
-        <!-- 6 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">6. お問い合わせ先</h2>
-          <p class="mb-2 text-slate-300">
-            個人情報の取扱いに関するご意見、ご質問、苦情のお申出その他のお問い合わせは、以下の連絡先までお願いいたします。
-          </p>
-          <p class="font-medium text-slate-200">
-            Email：
-            <a href="mailto:contact@snaptechedge.com" class="text-blue-300 underline hover:text-blue-200">
-              contact@snaptechedge.com
-            </a>
-          </p>
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">6</span>
+            お問い合わせ先
+          </h2>
+          <p class="text-slate-600 mb-3">個人情報の取扱いに関するお問い合わせは、以下までお願いいたします。</p>
+          <a href="mailto:contact@snaptechedge.com" class="text-blue-600 hover:text-blue-700 font-medium">
+            contact@snaptechedge.com
+          </a>
         </section>
 
-        <!-- 7 -->
         <section>
-          <h2 class="text-base font-semibold mb-3 border-l-4 border-blue-500 pl-3">7. プライバシーポリシーの改定</h2>
-          <p class="text-slate-300">
-            当組織は、必要に応じて本ポリシーを変更することがあります。変更した場合には、当ウェブサイト上での掲示等により
-            ユーザーに通知いたします。
+          <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-sm flex items-center justify-center font-bold">7</span>
+            プライバシーポリシーの改定
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            当組織は、必要に応じて本ポリシーを変更することがあります。変更した場合には、当ウェブサイト上での掲示によりユーザーに通知いたします。
           </p>
         </section>
-      </section>
+      </div>
 
-      <div class="mt-8 pt-4 border-t border-slate-800 text-right text-xs text-slate-400">
+      <div class="mt-10 pt-6 border-t border-slate-200 text-right text-sm text-slate-500">
         制定日：2026年1月1日
       </div>
     </main>
 
     <!-- フッター -->
-    <footer class="mt-6 mb-8 text-[11px] text-slate-500 flex items-center justify-between">
-      <a href="index.html" class="hover:text-slate-200 transition">トップページへ</a>
+    <footer class="mt-8 mb-8 text-sm text-slate-500 flex items-center justify-between">
+      <a href="index.html" class="hover:text-blue-600 transition">トップページへ</a>
       <span>© <span id="year"></span> SnapTechEdge</span>
     </footer>
   </div>
