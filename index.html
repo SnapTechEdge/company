@@ -3,417 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SnapTechEdge | AI × Webプロダクト開発スタジオ</title>
-  <meta name="description" content="SnapTechEdgeは、AI・Webアプリケーションの開発を支援するスモールチーム/個人スタジオです。プロトタイプから本番運用まで、スピード感を持って伴走します。">
+  <title>SnapTechEdge | AI × 教育アプリ開発</title>
+  <meta name="description" content="SnapTechEdgeは、AIを活用した教育アプリの企画・開発を行う東京拠点のソフトウェア開発事業者です。">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-50">
-  <!-- 背景グラデーション -->
-  <div class="fixed inset-0 -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 blur-3xl rounded-full"></div>
+<body class="bg-white text-slate-800 antialiased">
+  <!-- 背景装飾 -->
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-60"></div>
+    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-cyan-100 rounded-full blur-3xl opacity-50"></div>
+    <div class="absolute -bottom-40 right-1/4 w-72 h-72 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
   </div>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+  <div class="max-w-5xl mx-auto px-6 py-8">
     <!-- ヘッダー -->
-    <header class="flex items-center justify-between gap-4">
-      <a href="index.html" class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-xs font-bold">
-          ST
-        </div>
-        <div class="flex flex-col leading-tight">
-          <span class="font-semibold tracking-tight">SnapTechEdge</span>
-          <span class="text-[11px] text-slate-400">AI & Web Product Studio</span>
-        </div>
+    <header class="flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight text-slate-900">
+        SnapTechEdge
       </a>
-
-      <nav class="hidden md:flex items-center gap-8 text-sm text-slate-200">
-        <a href="#services" class="hover:text-white transition">サービス</a>
-        <a href="#works" class="hover:text-white transition">プロジェクト</a>
-        <a href="#process" class="hover:text-white transition">進め方</a>
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#contact" class="hover:text-white transition">お問い合わせ</a>
+      <nav class="flex items-center gap-6 text-sm text-slate-600">
+        <a href="#about" class="hover:text-blue-600 transition">About</a>
+        <a href="#business" class="hover:text-blue-600 transition">事業内容</a>
+        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
       </nav>
-
-      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-900 hover:bg-white transition">
-        無料相談する
-        <span class="text-xs">→</span>
-      </a>
     </header>
 
-    <!-- ヒーロー -->
-    <main class="mt-10 sm:mt-16">
-      <section class="grid lg:grid-cols-[1.1fr_minmax(0,0.9fr)] gap-10 items-center">
-        <!-- 左：テキスト -->
-        <div>
-          <span class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Small but sharp. Snap your product into shape.
-          </span>
-
-          <h1 class="mt-6 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-            アイデアを、<span class="text-blue-400">素早く形にする</span><br>
-            スモールチーム向け<br class="hidden sm:block">プロダクト開発パートナー
-          </h1>
-
-          <p class="mt-6 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            SnapTechEdgeは、個人開発者・スタートアップ・スモールビジネスのための
-            <span class="font-medium text-slate-100">AI × Webアプリ開発スタジオ</span>です。
-            要件の整理から設計・実装・改善サイクルまで、フットワーク軽く伴走します。
-          </p>
-
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold bg-blue-500 hover:bg-blue-400 text-white shadow-lg shadow-blue-500/30 transition">
-              プロジェクトの相談をする
-              <span class="ml-2 text-xs">→</span>
-            </a>
-            <a href="#services" class="inline-flex items-center gap-2 text-sm text-slate-200 hover:text-white transition">
-              提供サービスを見る
-              <span class="text-xs">↓</span>
-            </a>
-          </div>
-
-          <div class="mt-8 grid grid-cols-3 gap-4 text-xs text-slate-300 max-w-md">
-            <div class="border border-slate-800 rounded-2xl px-4 py-3 bg-slate-900/60">
-              <div class="text-[11px] text-slate-400">対応フェーズ</div>
-              <div class="mt-1 font-semibold text-sm">要件整理〜MVP〜運用</div>
-            </div>
-            <div class="border border-slate-800 rounded-2xl px-4 py-3 bg-slate-900/60">
-              <div class="text-[11px] text-slate-400">得意領域</div>
-              <div class="mt-1 font-semibold text-sm">AI/LLM・SaaS</div>
-            </div>
-            <div class="border border-slate-800 rounded-2xl px-4 py-3 bg-slate-900/60">
-              <div class="text-[11px] text-slate-400">開発スタイル</div>
-              <div class="mt-1 font-semibold text-sm">小さく作り速く回す</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 右：UIカード風 -->
-        <div class="relative">
-          <div class="absolute -top-6 -right-4 hidden sm:block">
-            <span class="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 text-emerald-300 border border-emerald-500/30 px-3 py-1 text-[11px]">
-              <span class="text-xs">⚡</span> AIプロトタイプも短期間で
-            </span>
-          </div>
-
-          <div class="border border-slate-800 rounded-3xl bg-slate-900/70 backdrop-blur-xl p-5 sm:p-6 shadow-2xl">
-            <div class="flex items-center justify-between text-xs text-slate-300">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span class="ml-2 text-[11px] text-slate-400">snaptechedge.dev</span>
-              </div>
-              <span class="text-[11px] text-slate-500 hidden sm:inline">Preview · MVP Dashboard</span>
-            </div>
-
-            <div class="mt-4 rounded-2xl border border-slate-800 bg-slate-950/50 p-4 text-xs font-mono text-slate-200 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">project_name</span>
-                <span class="text-slate-100">"英語学習アプリ MVP"</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">stack</span>
-                <span class="text-slate-100">["Swift", "Firebase", "OpenAI"]</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">status</span>
-                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-300 border border-emerald-500/30">
-                  ● running
-                </span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">iteration</span>
-                <span class="text-slate-100">#05 「UX改善」</span>
-              </div>
-            </div>
-
-            <div class="mt-4 grid grid-cols-2 gap-3 text-[11px] text-slate-300">
-              <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-3">
-                <div class="text-slate-400 mb-1">学習アプリ例</div>
-                <ul class="space-y-1">
-                  <li>・瞬間英作文トレーニング</li>
-                  <li>・AIフィードバック</li>
-                  <li>・レベル別レッスン</li>
-                </ul>
-              </div>
-              <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-3">
-                <div class="text-slate-400 mb-1">開発スタイル</div>
-                <ul class="space-y-1">
-                  <li>・小さくリリース</li>
-                  <li>・ユーザーの声で改善</li>
-                  <li>・技術選定もサポート</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- サービス -->
-      <section id="services" class="mt-16 sm:mt-20">
-        <div class="flex items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">提供サービス</h2>
-            <p class="mt-2 text-sm text-slate-300">
-              「0→1 の立ち上げ」「既存プロダクトの磨き込み」を中心にサポートします。
-            </p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-5">
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <div class="text-2xl mb-2">🤖</div>
-            <h3 class="font-semibold text-sm mb-2">AI / LLM活用アプリ開発</h3>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-              ChatGPT APIなどのLLMを活用したチャットボット、文章生成、要約、レコメンドなどの機能をプロダクトに組み込みます。
-            </p>
-            <ul class="text-[11px] text-slate-400 space-y-1.5">
-              <li>・要件整理 &amp; PoC</li>
-              <li>・プロトタイプ実装</li>
-              <li>・運用を見据えた設計相談</li>
-            </ul>
-          </div>
-
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <div class="text-2xl mb-2">📱</div>
-            <h3 class="font-semibold text-sm mb-2">Web / モバイルアプリ開発</h3>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-              小さく始めて育てていけるようなWebサービス・モバイルアプリを、デザイン〜実装まで一気通貫で対応します。
-            </p>
-            <ul class="text-[11px] text-slate-400 space-y-1.5">
-              <li>・個人開発プロダクト</li>
-              <li>・社内ツール / ダッシュボード</li>
-              <li>・LP・マーケティングサイト</li>
-            </ul>
-          </div>
-
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <div class="text-2xl mb-2">🧩</div>
-            <h3 class="font-semibold text-sm mb-2">MVP設計 &amp; 技術アドバイザリー</h3>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-              「どこまで作るべきか」「どの技術を選ぶべきか」といった、最初の一歩の意思決定を一緒に整理します。
-            </p>
-            <ul class="text-[11px] text-slate-400 space-y-1.5">
-              <li>・MVPスコープ定義</li>
-              <li>・技術スタックの相談</li>
-              <li>・UI/UXの初期設計</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 特長 -->
+    <main>
+      <!-- ヒーロー -->
       <section class="mt-16 sm:mt-20">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">SnapTechEdgeの特長</h2>
-            <p class="mt-2 text-sm text-slate-300">
-              いわゆる大規模開発ではなく、「小さいけれど尖ったプロダクト」を得意としています。
+            <p class="text-sm font-medium text-blue-600 mb-3">AI × Education</p>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-slate-900">
+              テクノロジーで、学びを変える
+            </h1>
+            <p class="mt-6 text-lg text-slate-600 leading-relaxed">
+              SnapTechEdgeは、AIを活用した教育アプリの企画・開発を行っています。
+              誰もが効率的に、楽しく学べるプロダクトを作ります。
             </p>
+            <div class="mt-8">
+              <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-600/25">
+                お問い合わせ
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <!-- 抽象グラフィック -->
+          <div class="flex justify-center">
+            <svg viewBox="0 0 400 400" class="w-full max-w-md" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 背景円 -->
+              <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.1"/>
+              <circle cx="200" cy="200" r="120" fill="url(#grad2)" opacity="0.15"/>
+              
+              <!-- ノード（AI/データを表現） -->
+              <circle cx="200" cy="120" r="25" fill="#3B82F6"/>
+              <circle cx="280" cy="180" r="20" fill="#06B6D4"/>
+              <circle cx="260" cy="270" r="22" fill="#6366F1"/>
+              <circle cx="140" cy="270" r="18" fill="#10B981"/>
+              <circle cx="120" cy="180" r="24" fill="#8B5CF6"/>
+              
+              <!-- 接続線 -->
+              <line x1="200" y1="145" x2="260" y2="175" stroke="#CBD5E1" stroke-width="2"/>
+              <line x1="200" y1="145" x2="140" y2="175" stroke="#CBD5E1" stroke-width="2"/>
+              <line x1="275" y1="198" x2="258" y2="250" stroke="#CBD5E1" stroke-width="2"/>
+              <line x1="125" y1="200" x2="142" y2="255" stroke="#CBD5E1" stroke-width="2"/>
+              <line x1="160" y1="270" x2="238" y2="270" stroke="#CBD5E1" stroke-width="2"/>
+              
+              <!-- 中央のシンボル -->
+              <circle cx="200" cy="200" r="35" fill="white" stroke="#3B82F6" stroke-width="3"/>
+              <path d="M185 200 L195 210 L215 190" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              
+              <!-- 装飾的な点 -->
+              <circle cx="320" cy="120" r="6" fill="#E0E7FF"/>
+              <circle cx="80" cy="280" r="8" fill="#CFFAFE"/>
+              <circle cx="330" cy="300" r="5" fill="#D1FAE5"/>
+              <circle cx="70" cy="130" r="7" fill="#EDE9FE"/>
+              
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3B82F6"/>
+                  <stop offset="100%" style="stop-color:#06B6D4"/>
+                </linearGradient>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6366F1"/>
+                  <stop offset="100%" style="stop-color:#8B5CF6"/>
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
         </div>
-
-        <div class="grid md:grid-cols-3 gap-5 text-sm">
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 class="font-semibold mb-2 text-sm">個人・スモールチームに最適化</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              個人開発や少人数チームの「これを試したい」を実現することを前提に、スコープも開発プロセスもコンパクトに設計します。
-            </p>
-          </div>
-
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 class="font-semibold mb-2 text-sm">実装とUXをセットで考える</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              見た目だけ・コードだけではなく、「ユーザーがどう使うか」をベースにUIと技術選定を一体で考えます。
-            </p>
-          </div>
-
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 class="font-semibold mb-2 text-sm">開発後も運用しやすい設計</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              作って終わりではなく、リリース後に自分で回していけるよう、運用・改善しやすい構成を意識しています。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- プロジェクト例 -->
-      <section id="works" class="mt-16 sm:mt-20">
-        <div class="flex items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">プロジェクト例</h2>
-            <p class="mt-2 text-sm text-slate-300">
-              実際に想定している/取り組んでいるプロダクトのイメージです。（機密上、詳細はお問い合わせください）
-            </p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-5 text-xs">
-          <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] rounded-full border border-blue-500/40 bg-blue-500/10 px-2 py-0.5 text-blue-200">学習アプリ</span>
-              <span class="text-[11px] text-slate-400">個人開発</span>
-            </div>
-            <h3 class="font-semibold text-sm">英語学習 × AIフィードバックアプリ</h3>
-            <p class="text-slate-300 leading-relaxed">
-              瞬間英作文トレーニングにAIを組み合わせ、文法チェック・言い換え提案・学習履歴管理を行うモバイルアプリ。
-            </p>
-          </article>
-
-          <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-emerald-200">業務効率化</span>
-              <span class="text-[11px] text-slate-400">スモールビジネス</span>
-            </div>
-            <h3 class="font-semibold text-sm">ルーティン業務の自動化ツール</h3>
-            <p class="text-slate-300 leading-relaxed">
-              日報作成・メールテンプレ生成・簡易データ集計など、日々の定型業務をまとめて自動化するWebダッシュボード。
-            </p>
-          </article>
-
-          <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] rounded-full border border-purple-500/40 bg-purple-500/10 px-2 py-0.5 text-purple-200">MVP</span>
-              <span class="text-[11px] text-slate-400">スタートアップ</span>
-            </div>
-            <h3 class="font-semibold text-sm">SaaSの初期MVP設計と実装</h3>
-            <p class="text-slate-300 leading-relaxed">
-              プロトタイプ検証のための最小機能セットを一緒に定義し、2〜3ヶ月で検証可能なMVPを構築。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- 進め方 -->
-      <section id="process" class="mt-16 sm:mt-20">
-        <div class="flex items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">進め方</h2>
-            <p class="mt-2 text-sm text-slate-300">
-              ざっくりとしたイメージでも大丈夫です。話しながら一緒に輪郭を整えていきます。
-            </p>
-          </div>
-        </div>
-
-        <ol class="grid md:grid-cols-4 gap-4 text-xs">
-          <li class="relative rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-            <div class="absolute -top-3 left-4 w-6 h-6 rounded-full bg-slate-950 border border-slate-700 text-[11px] flex items-center justify-center">
-              1
-            </div>
-            <h3 class="mt-3 font-semibold mb-1 text-sm">ヒアリング</h3>
-            <p class="text-slate-300 leading-relaxed">
-              実現したいこと・現状の課題・予算感・スケジュールなどをオンラインで伺います。
-            </p>
-          </li>
-          <li class="relative rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-            <div class="absolute -top-3 left-4 w-6 h-6 rounded-full bg-slate-950 border border-slate-700 text-[11px] flex items-center justify-center">
-              2
-            </div>
-            <h3 class="mt-3 font-semibold mb-1 text-sm">プラン・見積り</h3>
-            <p class="text-slate-300 leading-relaxed">
-              スコープ案・進め方・ざっくりした工数/費用をテキストベースでご提案します。
-            </p>
-          </li>
-          <li class="relative rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-            <div class="absolute -top-3 left-4 w-6 h-6 rounded-full bg-slate-950 border border-slate-700 text-[11px] flex items-center justify-center">
-              3
-            </div>
-            <h3 class="mt-3 font-semibold mb-1 text-sm">設計・実装</h3>
-            <p class="text-slate-300 leading-relaxed">
-              デザインと実装を平行して進め、こまめに共有しながら方向性を合わせていきます。
-            </p>
-          </li>
-          <li class="relative rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-            <div class="absolute -top-3 left-4 w-6 h-6 rounded-full bg-slate-950 border border-slate-700 text-[11px] flex items-center justify-center">
-              4
-            </div>
-            <h3 class="mt-3 font-semibold mb-1 text-sm">リリース・改善</h3>
-            <p class="text-slate-300 leading-relaxed">
-              初期リリース後の軽微な改善・チューニングも、期間を決めてサポート可能です。
-            </p>
-          </li>
-        </ol>
       </section>
 
       <!-- About -->
-      <section id="about" class="mt-16 sm:mt-20">
-        <div class="grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-6 items-start">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">About SnapTechEdge</h2>
-            <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-              SnapTechEdgeは、ソロ/少人数で動くスモールスタジオとして、プロダクトづくりが好きな人たちの
-              「作りたい」「試したい」を形にすることをミッションとしています。
+      <section id="about" class="mt-24 sm:mt-32">
+        <div class="text-center mb-10">
+          <p class="text-sm font-medium text-blue-600 mb-2">About</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">私たちについて</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 items-center">
+          <div class="bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 border border-slate-100">
+            <p class="text-slate-600 leading-relaxed">
+              SnapTechEdgeは東京を拠点に、AI技術を活用した教育アプリの企画・設計・開発を行っています。「学習をもっと効率的に、もっと楽しく」をテーマに、ユーザーが継続して使いたくなるプロダクトを目指しています。
             </p>
-            <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-              一度きりの受託で終わるのではなく、「どうしたらこのプロダクトがちゃんと使われるか」を一緒に考えながら、
-              テックとUXの両面から支えていきます。
+            <p class="mt-4 text-slate-600 leading-relaxed">
+              UXとテクノロジーの両面からアプローチし、質の高い学習体験を提供します。
             </p>
           </div>
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 text-xs text-slate-300">
-            <h3 class="font-semibold mb-3 text-sm">Profile</h3>
-            <dl class="space-y-2">
-              <div class="flex justify-between gap-4">
-                <dt class="text-slate-400">形態</dt>
-                <dd class="text-right">個人/スモールスタジオ</dd>
-              </div>
-              <div class="flex justify-between gap-4">
-                <dt class="text-slate-400">得意なこと</dt>
-                <dd class="text-right">小さく作って素早く検証</dd>
-              </div>
-              <div class="flex justify-between gap-4">
-                <dt class="text-slate-400">開発領域</dt>
-                <dd class="text-right">Web / モバイル / AI連携</dd>
-              </div>
-              <div class="flex justify-between gap-4">
-                <dt class="text-slate-400">コミュニケーション</dt>
-                <dd class="text-right">日本語（メイン） / 簡単な英語</dd>
-              </div>
-            </dl>
+          <div class="flex justify-center">
+            <svg viewBox="0 0 300 250" class="w-full max-w-xs" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- デバイス -->
+              <rect x="60" y="30" width="180" height="130" rx="10" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+              <rect x="75" y="50" width="150" height="90" rx="5" fill="#F1F5F9"/>
+              <!-- 画面内のグラフ -->
+              <rect x="90" y="70" width="30" height="50" rx="3" fill="#3B82F6" opacity="0.7"/>
+              <rect x="130" y="85" width="30" height="35" rx="3" fill="#06B6D4" opacity="0.7"/>
+              <rect x="170" y="60" width="30" height="60" rx="3" fill="#6366F1" opacity="0.7"/>
+              <!-- スマホ -->
+              <rect x="190" y="120" width="70" height="120" rx="10" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+              <rect x="200" y="135" width="50" height="80" rx="3" fill="#F1F5F9"/>
+              <circle cx="225" cy="227" r="8" fill="#E2E8F0"/>
+              <!-- 装飾 -->
+              <circle cx="50" cy="200" r="20" fill="#DBEAFE" opacity="0.6"/>
+              <circle cx="270" cy="50" r="15" fill="#CFFAFE" opacity="0.6"/>
+            </svg>
           </div>
         </div>
       </section>
 
-      <!-- Contact -->
-      <section id="contact" class="mt-16 sm:mt-20 mb-16">
-        <div class="max-w-2xl">
-          <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">お問い合わせ・ご相談</h2>
-          <p class="mt-3 text-sm text-slate-300 leading-relaxed">
-            「こんなことはお願いできる？」「まだふんわりしたアイデアしかないけれど相談したい」といった段階でも、お気軽にご連絡ください。
-          </p>
-
-          <div class="mt-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-sm">
-            <p class="text-slate-200 mb-2 font-medium">メールでお問い合わせ</p>
-            <p class="text-slate-300 text-sm mb-4">
-              下記アドレス宛に、簡単なご相談内容・ご希望の時期などを書いてお送りください。
-            </p>
-            <a href="mailto:contact@snaptechedge.com" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-900 text-sm font-medium hover:bg-white transition">
-              contact@snaptechedge.com
-            </a>
-
-            <p class="mt-4 text-[11px] text-slate-400">
-              ※個人情報の取り扱いについては
-              <a href="privacy.html" class="underline hover:text-slate-200">プライバシーポリシー</a>
-              をご確認ください。
+      <!-- 事業内容 -->
+      <section id="business" class="mt-24 sm:mt-32">
+        <div class="text-center mb-10">
+          <p class="text-sm font-medium text-blue-600 mb-2">Business</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">事業内容</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">教育アプリ開発</h3>
+            <p class="text-slate-600 leading-relaxed">
+              語学学習を中心とした教育アプリの企画から開発、運用まで一貫して行っています。iOS/Androidに対応したモバイルアプリを提供します。
             </p>
           </div>
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">AI技術の活用</h3>
+            <p class="text-slate-600 leading-relaxed">
+              大規模言語モデル（LLM）を活用し、パーソナライズされたフィードバックや学習支援機能を実装。学習効果を最大化します。
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">UX重視の設計</h3>
+            <p class="text-slate-600 leading-relaxed">
+              ユーザーが継続して学習できるよう、使いやすさと楽しさを重視したUI/UX設計を行っています。
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">継続的な改善</h3>
+            <p class="text-slate-600 leading-relaxed">
+              ユーザーフィードバックを元に機能改善を繰り返し、より良いプロダクトへと進化させています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 技術スタック -->
+      <section class="mt-24 sm:mt-32">
+        <div class="text-center mb-10">
+          <p class="text-sm font-medium text-blue-600 mb-2">Technology</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">技術スタック</h2>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Swift</span>
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">SwiftUI</span>
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Firebase</span>
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Cloud Functions</span>
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">OpenAI API</span>
+          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Claude API</span>
+        </div>
+      </section>
+
+      <!-- 運営者情報 -->
+      <section class="mt-24 sm:mt-32">
+        <div class="text-center mb-10">
+          <p class="text-sm font-medium text-blue-600 mb-2">Company</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">運営者情報</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden max-w-lg mx-auto">
+          <dl class="divide-y divide-slate-100">
+            <div class="flex justify-between gap-4 px-6 py-4">
+              <dt class="text-slate-500">屋号</dt>
+              <dd class="font-medium text-slate-900">SnapTechEdge</dd>
+            </div>
+            <div class="flex justify-between gap-4 px-6 py-4">
+              <dt class="text-slate-500">所在地</dt>
+              <dd class="text-slate-700">東京都</dd>
+            </div>
+            <div class="flex justify-between gap-4 px-6 py-4">
+              <dt class="text-slate-500">事業内容</dt>
+              <dd class="text-slate-700">ソフトウェア企画・開発</dd>
+            </div>
+            <div class="flex justify-between gap-4 px-6 py-4">
+              <dt class="text-slate-500">設立</dt>
+              <dd class="text-slate-700">2025年</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- お問い合わせ -->
+      <section id="contact" class="mt-24 sm:mt-32 mb-20">
+        <div class="text-center mb-10">
+          <p class="text-sm font-medium text-blue-600 mb-2">Contact</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">お問い合わせ</h2>
+        </div>
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl p-8 sm:p-10 text-center text-white">
+          <p class="text-blue-100 mb-6">
+            ご質問・お問い合わせは下記メールアドレスまでお気軽にご連絡ください。
+          </p>
+          <a href="mailto:contact@snaptechedge.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition shadow-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            contact@snaptechedge.com
+          </a>
         </div>
       </section>
     </main>
 
     <!-- フッター -->
-    <footer class="border-t border-slate-800 pt-4 pb-8 text-[11px] text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+    <footer class="border-t border-slate-200 pt-6 pb-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
       <span>© <span id="year"></span> SnapTechEdge</span>
       <div class="flex items-center gap-4">
-        <a href="privacy.html" class="hover:text-slate-200 transition">プライバシーポリシー</a>
+        <a href="privacy.html" class="hover:text-blue-600 transition">プライバシーポリシー</a>
+        <a href="tokushoho.html" class="hover:text-blue-600 transition">特定商取引法に基づく表記</a>
       </div>
     </footer>
   </div>
 
   <script>
-    // 年だけ自動更新
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
