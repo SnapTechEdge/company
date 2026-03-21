@@ -1,267 +1,365 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SnapTechEdge | AI × 教育アプリ開発</title>
-  <meta name="description" content="SnapTechEdgeは、AIを活用した教育アプリの企画・開発を行う東京拠点のソフトウェア開発事業者です。">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapTechEdge | AI × 教育アプリ開発</title>
+    <meta name="description" content="SnapTechEdgeは、AIを活用した教育アプリの企画・開発を行う東京拠点のソフトウェア開発事業者です。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+ 
+        * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
+ 
+        /* Subtle grain texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' fill='white'/%3E%3C/svg%3E");
+        }
+ 
+        /* Glow effects */
+        .glow-blue { box-shadow: 0 0 80px rgba(59, 130, 246, 0.15); }
+        .glow-text { text-shadow: 0 0 80px rgba(59, 130, 246, 0.3); }
+ 
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+ 
+        /* Fade in animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .fade-up-d1 { animation-delay: 0.1s; }
+        .fade-up-d2 { animation-delay: 0.2s; }
+        .fade-up-d3 { animation-delay: 0.3s; }
+        .fade-up-d4 { animation-delay: 0.4s; }
+ 
+        /* Gradient border card */
+        .card-glow {
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.4s ease;
+        }
+        .card-glow:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-2px);
+        }
+ 
+        /* Hero gradient orb */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+        }
+    </style>
 </head>
-<body class="bg-white text-slate-800 antialiased">
-  <!-- 背景装飾 -->
-  <div class="fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-60"></div>
-    <div class="absolute top-1/2 -left-40 w-80 h-80 bg-cyan-100 rounded-full blur-3xl opacity-50"></div>
-    <div class="absolute -bottom-40 right-1/4 w-72 h-72 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
-  </div>
-
-  <div class="max-w-5xl mx-auto px-6 py-8">
-    <!-- ヘッダー -->
-    <header class="flex items-center justify-between">
-      <a href="index.html" class="text-xl font-bold tracking-tight text-slate-900">
-        SnapTechEdge
-      </a>
-      <nav class="flex items-center gap-6 text-sm text-slate-600">
-        <a href="#about" class="hover:text-blue-600 transition">About</a>
-        <a href="#business" class="hover:text-blue-600 transition">事業内容</a>
-        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
-      </nav>
-    </header>
-
-    <main>
-      <!-- ヒーロー -->
-      <section class="mt-12 sm:mt-16">
-        <div class="grid lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <p class="text-sm font-medium text-blue-600 mb-3">AI × Education</p>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-slate-900">
-              テクノロジーで、学びを変える
-            </h1>
-            <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-              SnapTechEdgeは、AIを活用した教育アプリの企画・開発を行っています。
-              誰もが効率的に、楽しく学べるプロダクトを作ります。
-            </p>
-            <div class="mt-8">
-              <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-600/25">
-                お問い合わせ
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
+<body class="bg-[#0a0a0a] text-neutral-300 antialiased">
+ 
+    <!-- Starfield Canvas -->
+    <canvas id="starfield" class="fixed inset-0 -z-20" style="pointer-events:none;"></canvas>
+ 
+    <!-- Background orbs -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="orb w-[600px] h-[600px] bg-blue-600 -top-40 -right-40"></div>
+        <div class="orb w-[500px] h-[500px] bg-violet-600 top-1/2 -left-60"></div>
+        <div class="orb w-[400px] h-[400px] bg-cyan-500 -bottom-40 right-1/4"></div>
+    </div>
+ 
+    <div class="max-w-5xl mx-auto px-6">
+ 
+        <!-- Header -->
+        <header class="flex items-center justify-between py-6 border-b border-white/5">
+            <a href="index.html" class="text-lg font-semibold tracking-tight text-white">
+                SnapTechEdge
+            </a>
+            <nav class="flex items-center gap-8 text-sm text-neutral-500">
+                <a href="#about" class="hover:text-white transition-colors duration-300">About</a>
+                <a href="#business" class="hover:text-white transition-colors duration-300">事業内容</a>
+                <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
+            </nav>
+        </header>
+ 
+        <main>
+ 
+            <!-- Hero -->
+            <section class="relative py-24 sm:py-32 lg:py-40">
+                <div class="max-w-3xl">
+                    <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6 fade-up">AI × Education</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white glow-text fade-up fade-up-d1">
+                        テクノロジーで、<br>学びを変える
+                    </h1>
+                    <p class="mt-8 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-xl fade-up fade-up-d2">
+                        AIを活用した教育アプリの企画・開発。<br>
+                        誰もが効率的に、楽しく学べるプロダクトを。
+                    </p>
+                    <div class="mt-10 flex items-center gap-4 fade-up fade-up-d3">
+                        <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300">
+                            お問い合わせ
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- Divider -->
+            <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+ 
+            <!-- About -->
+            <section id="about" class="py-20 sm:py-28">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">About</p>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1">私たちについて</h2>
+                    </div>
+                    <div class="space-y-6 fade-up fade-up-d2">
+                        <p class="text-neutral-400 leading-relaxed text-lg">
+                            SnapTechEdgeはAI技術を活用した教育アプリの企画・設計・開発を行っています。
+                        </p>
+                        <p class="text-neutral-400 leading-relaxed text-lg">
+                            「学習を低投資でもっと効率的に」をテーマに、UXとテクノロジーの両面からアプローチし、質の高い学習体験を提供します。
+                        </p>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- Divider -->
+            <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+ 
+            <!-- Business -->
+            <section id="business" class="py-20 sm:py-28">
+                <div class="mb-16">
+                    <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">Business</p>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1">事業内容</h2>
+                </div>
+ 
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="card-glow rounded-2xl p-8 fade-up">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3">教育アプリ開発</h3>
+                        <p class="text-neutral-500 leading-relaxed">
+                            語学学習を中心とした教育アプリの企画から開発、運用まで一貫して対応。iOS/Androidに対応したモバイルアプリを提供します。
+                        </p>
+                    </div>
+ 
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d1">
+                        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3">AI技術の活用</h3>
+                        <p class="text-neutral-500 leading-relaxed">
+                            大規模言語モデル（LLM）を活用し、パーソナライズされたフィードバックや学習支援機能を実装。学習効果を最大化します。
+                        </p>
+                    </div>
+ 
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d2">
+                        <div class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3">UX重視の設計</h3>
+                        <p class="text-neutral-500 leading-relaxed">
+                            ユーザーが継続して学習できるよう、使いやすさとシンプルさを重視したUI/UX設計を行っています。
+                        </p>
+                    </div>
+ 
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d3">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3">継続的な改善</h3>
+                        <p class="text-neutral-500 leading-relaxed">
+                            ユーザーフィードバックを元に機能改善を繰り返し、より良いプロダクトへと進化させています。
+                        </p>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- Divider -->
+            <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+ 
+            <!-- Contact -->
+            <section id="contact" class="py-20 sm:py-28 text-center">
+                <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4">Contact</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6">お問い合わせ</h2>
+                <p class="text-neutral-500 mb-10 max-w-md mx-auto">
+                    ご質問・お問い合わせは下記メールアドレスまでお気軽にご連絡ください。
+                </p>
+                <a href="mailto:contact@snaptechedge.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    contact@snaptechedge.com
+                </a>
+            </section>
+ 
+        </main>
+ 
+        <!-- Footer -->
+        <footer class="border-t border-white/5 py-8 text-xs text-neutral-600 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span>© <span id="year"></span> SnapTechEdge</span>
+            <div class="flex items-center gap-6">
+                <a href="privacy.html" class="hover:text-neutral-400 transition-colors duration-300">プライバシーポリシー</a>
+                <a href="tokushoho.html" class="hover:text-neutral-400 transition-colors duration-300">特定商取引法に基づく表記</a>
             </div>
-          </div>
-          <!-- 抽象グラフィック -->
-          <div class="flex justify-center">
-            <svg viewBox="0 0 400 400" class="w-full max-w-md" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- 背景円 -->
-              <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.1"/>
-              <circle cx="200" cy="200" r="120" fill="url(#grad2)" opacity="0.15"/>
-              
-              <!-- ノード（AI/データを表現） -->
-              <circle cx="200" cy="120" r="25" fill="#3B82F6"/>
-              <circle cx="280" cy="180" r="20" fill="#06B6D4"/>
-              <circle cx="260" cy="270" r="22" fill="#6366F1"/>
-              <circle cx="140" cy="270" r="18" fill="#10B981"/>
-              <circle cx="120" cy="180" r="24" fill="#8B5CF6"/>
-              
-              <!-- 接続線 -->
-              <line x1="200" y1="145" x2="260" y2="175" stroke="#CBD5E1" stroke-width="2"/>
-              <line x1="200" y1="145" x2="140" y2="175" stroke="#CBD5E1" stroke-width="2"/>
-              <line x1="275" y1="198" x2="258" y2="250" stroke="#CBD5E1" stroke-width="2"/>
-              <line x1="125" y1="200" x2="142" y2="255" stroke="#CBD5E1" stroke-width="2"/>
-              <line x1="160" y1="270" x2="238" y2="270" stroke="#CBD5E1" stroke-width="2"/>
-              
-              <!-- 中央のシンボル -->
-              <circle cx="200" cy="200" r="35" fill="white" stroke="#3B82F6" stroke-width="3"/>
-              <path d="M185 200 L195 210 L215 190" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              
-              <!-- 装飾的な点 -->
-              <circle cx="320" cy="120" r="6" fill="#E0E7FF"/>
-              <circle cx="80" cy="280" r="8" fill="#CFFAFE"/>
-              <circle cx="330" cy="300" r="5" fill="#D1FAE5"/>
-              <circle cx="70" cy="130" r="7" fill="#EDE9FE"/>
-              
-              <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#3B82F6"/>
-                  <stop offset="100%" style="stop-color:#06B6D4"/>
-                </linearGradient>
-                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#6366F1"/>
-                  <stop offset="100%" style="stop-color:#8B5CF6"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      <!-- About -->
-      <section id="about" class="mt-16 sm:mt-20">
-        <div class="text-center mb-6">
-          <p class="text-sm font-medium text-blue-600 mb-2">About</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">私たちについて</h2>
-        </div>
-        <div class="grid md:grid-cols-2 gap-6 items-center">
-          <div class="bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 border border-slate-100">
-            <p class="text-slate-600 leading-relaxed">
-              SnapTechEdgeは東京を拠点に、AI技術を活用した教育アプリの企画・設計・開発を行っています。「学習をもっと効率的に、もっと楽しく」をテーマに、ユーザーが継続して使いたくなるプロダクトを目指しています。
-            </p>
-            <p class="mt-4 text-slate-600 leading-relaxed">
-              UXとテクノロジーの両面からアプローチし、質の高い学習体験を提供します。
-            </p>
-          </div>
-          <div class="flex justify-center">
-            <svg viewBox="0 0 300 250" class="w-full max-w-xs" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- デバイス -->
-              <rect x="60" y="30" width="180" height="130" rx="10" fill="white" stroke="#E2E8F0" stroke-width="2"/>
-              <rect x="75" y="50" width="150" height="90" rx="5" fill="#F1F5F9"/>
-              <!-- 画面内のグラフ -->
-              <rect x="90" y="70" width="30" height="50" rx="3" fill="#3B82F6" opacity="0.7"/>
-              <rect x="130" y="85" width="30" height="35" rx="3" fill="#06B6D4" opacity="0.7"/>
-              <rect x="170" y="60" width="30" height="60" rx="3" fill="#6366F1" opacity="0.7"/>
-              <!-- スマホ -->
-              <rect x="190" y="120" width="70" height="120" rx="10" fill="white" stroke="#E2E8F0" stroke-width="2"/>
-              <rect x="200" y="135" width="50" height="80" rx="3" fill="#F1F5F9"/>
-              <circle cx="225" cy="227" r="8" fill="#E2E8F0"/>
-              <!-- 装飾 -->
-              <circle cx="50" cy="200" r="20" fill="#DBEAFE" opacity="0.6"/>
-              <circle cx="270" cy="50" r="15" fill="#CFFAFE" opacity="0.6"/>
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      <!-- 事業内容 -->
-      <section id="business" class="mt-16 sm:mt-20">
-        <div class="text-center mb-6">
-          <p class="text-sm font-medium text-blue-600 mb-2">Business</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">事業内容</h2>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-5">
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">教育アプリ開発</h3>
-            <p class="text-slate-600 leading-relaxed">
-              語学学習を中心とした教育アプリの企画から開発、運用まで一貫して行っています。iOS/Androidに対応したモバイルアプリを提供します。
-            </p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">AI技術の活用</h3>
-            <p class="text-slate-600 leading-relaxed">
-              大規模言語モデル（LLM）を活用し、パーソナライズされたフィードバックや学習支援機能を実装。学習効果を最大化します。
-            </p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">UX重視の設計</h3>
-            <p class="text-slate-600 leading-relaxed">
-              ユーザーが継続して学習できるよう、使いやすさと楽しさを重視したUI/UX設計を行っています。
-            </p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">継続的な改善</h3>
-            <p class="text-slate-600 leading-relaxed">
-              ユーザーフィードバックを元に機能改善を繰り返し、より良いプロダクトへと進化させています。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 技術スタック -->
-      <section class="mt-16 sm:mt-20">
-        <div class="text-center mb-6">
-          <p class="text-sm font-medium text-blue-600 mb-2">Technology</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">技術スタック</h2>
-        </div>
-        <div class="flex flex-wrap justify-center gap-3">
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Swift</span>
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">SwiftUI</span>
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Firebase</span>
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Cloud Functions</span>
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">OpenAI API</span>
-          <span class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium">Claude API</span>
-        </div>
-      </section>
-
-      <!-- 運営者情報 -->
-      <section class="mt-16 sm:mt-20">
-        <div class="text-center mb-6">
-          <p class="text-sm font-medium text-blue-600 mb-2">Company</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">運営者情報</h2>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden max-w-lg mx-auto">
-          <dl class="divide-y divide-slate-100">
-            <div class="flex justify-between gap-4 px-6 py-4">
-              <dt class="text-slate-500">屋号</dt>
-              <dd class="font-medium text-slate-900">SnapTechEdge</dd>
-            </div>
-            <div class="flex justify-between gap-4 px-6 py-4">
-              <dt class="text-slate-500">所在地</dt>
-              <dd class="text-slate-700">東京都</dd>
-            </div>
-            <div class="flex justify-between gap-4 px-6 py-4">
-              <dt class="text-slate-500">事業内容</dt>
-              <dd class="text-slate-700">ソフトウェア企画・開発</dd>
-            </div>
-            <div class="flex justify-between gap-4 px-6 py-4">
-              <dt class="text-slate-500">設立</dt>
-              <dd class="text-slate-700">2025年</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      <!-- お問い合わせ -->
-      <section id="contact" class="mt-16 sm:mt-20 mb-12">
-        <div class="text-center mb-6">
-          <p class="text-sm font-medium text-blue-600 mb-2">Contact</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">お問い合わせ</h2>
-        </div>
-        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl p-8 sm:p-10 text-center text-white">
-          <p class="text-blue-100 mb-6">
-            ご質問・お問い合わせは下記メールアドレスまでお気軽にご連絡ください。
-          </p>
-          <a href="mailto:contact@snaptechedge.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition shadow-lg">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            contact@snaptechedge.com
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <!-- フッター -->
-    <footer class="border-t border-slate-200 pt-6 pb-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>© <span id="year"></span> SnapTechEdge</span>
-      <div class="flex items-center gap-4">
-        <a href="privacy.html" class="hover:text-blue-600 transition">プライバシーポリシー</a>
-        <a href="tokushoho.html" class="hover:text-blue-600 transition">特定商取引法に基づく表記</a>
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+        </footer>
+ 
+    </div>
+ 
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+ 
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+ 
+        document.querySelectorAll('.fade-up').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+ 
+        // Starfield animation
+        (() => {
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+            const STAR_COUNT = 150;
+ 
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+ 
+            function createStars() {
+                stars = [];
+                for (let i = 0; i < STAR_COUNT; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * 1.5 + 0.3,
+                        baseAlpha: Math.random() * 0.6 + 0.2,
+                        phase: Math.random() * Math.PI * 2,
+                        speed: Math.random() * 0.008 + 0.003,
+                        color: ['255,255,255', '180,200,255', '200,220,255', '160,180,255'][Math.floor(Math.random() * 4)]
+                    });
+                }
+            }
+ 
+            // Shooting stars
+            let shootingStars = [];
+            const SHOOTING_INTERVAL = 30000; // 30秒ごと
+            let lastShot = 0;
+ 
+            function spawnShootingStar() {
+                const startX = Math.random() * canvas.width * 0.8;
+                const startY = Math.random() * canvas.height * 0.4;
+                const angle = Math.PI / 6 + Math.random() * Math.PI / 6; // 30°~60°
+                const speed = 8 + Math.random() * 6;
+                const length = 80 + Math.random() * 120;
+                shootingStars.push({
+                    x: startX, y: startY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    length, life: 1.0, decay: 0.012 + Math.random() * 0.008
+                });
+            }
+ 
+            function drawShootingStars() {
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    const ss = shootingStars[i];
+                    ss.x += ss.vx;
+                    ss.y += ss.vy;
+                    ss.life -= ss.decay;
+ 
+                    if (ss.life <= 0) { shootingStars.splice(i, 1); continue; }
+ 
+                    const tailX = ss.x - (ss.vx / Math.hypot(ss.vx, ss.vy)) * ss.length * ss.life;
+                    const tailY = ss.y - (ss.vy / Math.hypot(ss.vx, ss.vy)) * ss.length * ss.life;
+ 
+                    const grad = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+                    grad.addColorStop(0, `rgba(255,255,255,0)`);
+                    grad.addColorStop(0.7, `rgba(200,220,255,${ss.life * 0.4})`);
+                    grad.addColorStop(1, `rgba(255,255,255,${ss.life * 0.9})`);
+ 
+                    ctx.beginPath();
+                    ctx.moveTo(tailX, tailY);
+                    ctx.lineTo(ss.x, ss.y);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+ 
+                    // Head glow
+                    ctx.beginPath();
+                    ctx.arc(ss.x, ss.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${ss.life * 0.8})`;
+                    ctx.fill();
+                }
+            }
+ 
+            function draw(time) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+                // Fixed stars
+                for (const s of stars) {
+                    const twinkle = Math.sin(time * s.speed + s.phase);
+                    const alpha = s.baseAlpha + twinkle * 0.3;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${s.color},${Math.max(0.05, alpha)})`;
+                    ctx.fill();
+ 
+                    if (s.r > 1 && alpha > 0.5) {
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(${s.color},${alpha * 0.08})`;
+                        ctx.fill();
+                    }
+                }
+ 
+                // Shooting stars
+                if (time - lastShot > SHOOTING_INTERVAL || lastShot === 0) {
+                    spawnShootingStar();
+                    lastShot = time;
+                }
+                drawShootingStars();
+ 
+                requestAnimationFrame(draw);
+            }
+ 
+            window.addEventListener('resize', () => { resize(); createStars(); });
+            resize();
+            createStars();
+            requestAnimationFrame(draw);
+        })();
+    </script>
+ 
 </body>
 </html>
