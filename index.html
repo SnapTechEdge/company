@@ -66,9 +66,11 @@
  
         /* Animated line grid */
         .line-grid {
-            position: absolute;
+            position: fixed;
             inset: 0;
+            z-index: -15;
             overflow: hidden;
+            pointer-events: none;
         }
         .line-grid svg {
             position: absolute;
@@ -106,6 +108,30 @@
     <!-- Starfield Canvas -->
     <canvas id="starfield" class="fixed inset-0 -z-20" style="pointer-events:none;"></canvas>
  
+    <!-- Animated line grid (full page) -->
+    <div class="line-grid">
+        <svg viewBox="0 0 1600 2400" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="150" x2="900" y2="80" class="line-draw" />
+            <line x1="350" y1="0" x2="1400" y2="500" class="line-draw line-draw-d1" />
+            <line x1="0" y1="450" x2="700" y2="300" class="line-draw line-draw-d2" />
+            <line x1="600" y1="0" x2="200" y2="900" class="line-draw line-draw-d3" />
+            <line x1="800" y1="100" x2="1600" y2="800" class="line-draw line-draw-d4" />
+            <line x1="0" y1="700" x2="1100" y2="550" class="line-draw line-draw-d5" />
+            <line x1="1000" y1="0" x2="1600" y2="350" class="line-draw line-draw-d6" />
+            <line x1="100" y1="400" x2="700" y2="1200" class="line-draw line-draw-d7" />
+            <line x1="1200" y1="200" x2="900" y2="1400" class="line-draw line-draw-d8" />
+            <line x1="0" y1="1000" x2="1600" y2="850" class="line-draw line-draw-d9" style="stroke:rgba(100,180,255,0.25);" />
+            <line x1="500" y1="800" x2="1400" y2="1500" class="line-draw line-draw-d10" style="stroke:rgba(130,150,255,0.2);" />
+            <line x1="1300" y1="600" x2="600" y2="1600" class="line-draw line-draw-d11" style="stroke:rgba(100,200,255,0.2);" />
+            <line x1="0" y1="1400" x2="1000" y2="1200" class="line-draw line-draw-d3" style="stroke:rgba(100,160,255,0.25);" />
+            <line x1="200" y1="1100" x2="1600" y2="1700" class="line-draw line-draw-d5" style="stroke:rgba(120,160,255,0.2);" />
+            <line x1="800" y1="1300" x2="1600" y2="1100" class="line-draw line-draw-d7" style="stroke:rgba(100,180,255,0.2);" />
+            <line x1="0" y1="1800" x2="1200" y2="1600" class="line-draw line-draw-d9" style="stroke:rgba(130,160,255,0.2);" />
+            <line x1="400" y1="1500" x2="1600" y2="2200" class="line-draw line-draw-d10" style="stroke:rgba(100,200,255,0.15);" />
+            <line x1="1100" y1="1600" x2="300" y2="2400" class="line-draw line-draw-d11" style="stroke:rgba(120,150,255,0.15);" />
+        </svg>
+    </div>
+ 
     <!-- Background orbs -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
         <div class="orb w-[600px] h-[600px] bg-blue-600 -top-40 -right-40"></div>
@@ -130,25 +156,8 @@
         <main>
  
             <!-- Hero -->
-            <section class="relative py-24 sm:py-32 lg:py-40 overflow-hidden">
-                <div class="line-grid">
-                    <svg viewBox="0 0 1200 800" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Irregular lines - various angles and lengths -->
-                        <line x1="0" y1="120" x2="750" y2="80" class="line-draw" />
-                        <line x1="300" y1="0" x2="1100" y2="350" class="line-draw line-draw-d1" />
-                        <line x1="0" y1="380" x2="600" y2="280" class="line-draw line-draw-d2" />
-                        <line x1="500" y1="0" x2="200" y2="700" class="line-draw line-draw-d3" />
-                        <line x1="700" y1="100" x2="1200" y2="600" class="line-draw line-draw-d4" />
-                        <line x1="0" y1="550" x2="900" y2="450" class="line-draw line-draw-d5" />
-                        <line x1="850" y1="0" x2="1200" y2="200" class="line-draw line-draw-d6" />
-                        <line x1="150" y1="200" x2="650" y2="750" class="line-draw line-draw-d7" />
-                        <line x1="950" y1="150" x2="750" y2="800" class="line-draw line-draw-d8" />
-                        <line x1="0" y1="700" x2="1200" y2="550" class="line-draw line-draw-d9" style="stroke:rgba(100,180,255,0.25);" />
-                        <line x1="400" y1="50" x2="1100" y2="750" class="line-draw line-draw-d10" style="stroke:rgba(130,150,255,0.2);" />
-                        <line x1="1050" y1="0" x2="600" y2="600" class="line-draw line-draw-d11" style="stroke:rgba(100,200,255,0.2);" />
-                    </svg>
-                </div>
-                <div class="relative max-w-3xl">
+            <section class="relative py-24 sm:py-32 lg:py-40">
+                <div class="max-w-3xl">
                     <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6 fade-up">AI × Education</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white glow-text fade-up fade-up-d1">
                         テクノロジーで、<br>学びを進化させる
