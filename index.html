@@ -63,6 +63,22 @@
             filter: blur(100px);
             opacity: 0.12;
         }
+ 
+        /* Dot grid pattern */
+        .dot-grid {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(148,163,184,0.15) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 10%, transparent 70%);
+            animation: dotPulse 8s ease-in-out infinite;
+        }
+ 
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-neutral-300 antialiased">
@@ -94,8 +110,9 @@
         <main>
  
             <!-- Hero -->
-            <section class="relative py-24 sm:py-32 lg:py-40">
-                <div class="max-w-3xl">
+            <section class="relative py-24 sm:py-32 lg:py-40 overflow-hidden">
+                <div class="dot-grid"></div>
+                <div class="relative max-w-3xl">
                     <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6 fade-up">AI × Education</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white glow-text fade-up fade-up-d1">
                         テクノロジーで、<br>学びを進化させる
