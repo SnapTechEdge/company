@@ -8,9 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
- 
+
         * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
- 
+
         /* Subtle grain texture */
         body::before {
             content: '';
@@ -21,14 +21,14 @@
             opacity: 0.015;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' fill='white'/%3E%3C/svg%3E");
         }
- 
+
         /* Glow effects */
         .glow-blue { box-shadow: 0 0 80px rgba(59, 130, 246, 0.15); }
         .glow-text { text-shadow: 0 0 80px rgba(59, 130, 246, 0.3); }
- 
+
         /* Smooth scroll */
         html { scroll-behavior: smooth; }
- 
+
         /* Fade in animation */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -42,7 +42,7 @@
         .fade-up-d2 { animation-delay: 0.2s; }
         .fade-up-d3 { animation-delay: 0.3s; }
         .fade-up-d4 { animation-delay: 0.4s; }
- 
+
         /* Gradient border card */
         .card-glow {
             position: relative;
@@ -55,7 +55,7 @@
             background: rgba(255,255,255,0.05);
             transform: translateY(-2px);
         }
- 
+
         /* Hero gradient orb */
         .orb {
             position: absolute;
@@ -63,24 +63,96 @@
             filter: blur(100px);
             opacity: 0.12;
         }
- 
+
+        /* Crossing animals */
+        .animal {
+            position: fixed;
+            bottom: 0;
+            width: 60px;
+            height: 40px;
+            pointer-events: none;
+            z-index: -5;
+            opacity: 0.22;
+            will-change: transform;
+        }
+        .animal svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .animal.flip svg {
+            transform: scaleX(-1);
+        }
+
+        @keyframes walkRight {
+            0%   { transform: translateX(-80px); }
+            100% { transform: translateX(calc(100vw + 80px)); }
+        }
+        @keyframes walkLeft {
+            0%   { transform: translateX(calc(100vw + 80px)); }
+            100% { transform: translateX(-80px); }
+        }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-2px); }
+        }
+        .animal-inner {
+            animation: bob 0.4s ease-in-out infinite;
+        }
+
+        /* Leg swing animations (trot gait: diagonal pairs move together) */
+        @keyframes legSwingA {
+            0%, 100% { transform: rotate(18deg); }
+            50%      { transform: rotate(-18deg); }
+        }
+        @keyframes legSwingB {
+            0%, 100% { transform: rotate(-18deg); }
+            50%      { transform: rotate(18deg); }
+        }
+        .leg {
+            transform-box: fill-box;
+            transform-origin: top center;
+        }
+        .leg-a {
+            animation: legSwingA 0.4s ease-in-out infinite;
+        }
+        .leg-b {
+            animation: legSwingB 0.4s ease-in-out infinite;
+        }
+
+        /* Tail wag — Labradors wag enthusiastically */
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(-15deg); }
+            50%      { transform: rotate(15deg); }
+        }
+        .tail {
+            transform-box: fill-box;
+            transform-origin: right center;
+            animation: tailWag 0.35s ease-in-out infinite;
+        }
+
         /* (lines rendered via canvas JS) */
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-neutral-300 antialiased">
- 
+
     <!-- Lines Canvas -->
     <canvas id="lines" class="fixed inset-0" style="z-index:-15; pointer-events:none;"></canvas>
- 
+
     <!-- Background orbs -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
         <div class="orb w-[600px] h-[600px] bg-blue-600 -top-40 -right-40"></div>
         <div class="orb w-[500px] h-[500px] bg-violet-600 top-1/2 -left-60"></div>
         <div class="orb w-[400px] h-[400px] bg-cyan-500 -bottom-40 right-1/4"></div>
     </div>
- 
+
+    <!-- Animal crossing container -->
+    <div id="animal-stage" aria-hidden="true"></div>
+
+    <!-- (animals are built inline via JS for CSS animation access) -->
+
     <div class="max-w-5xl mx-auto px-6">
- 
+
         <!-- Header -->
         <header class="flex items-center justify-between py-6 border-b border-white/5">
             <a href="index.html" class="text-lg font-semibold tracking-tight text-white">
@@ -92,9 +164,9 @@
                 <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
             </nav>
         </header>
- 
+
         <main>
- 
+
             <!-- Hero -->
             <section class="relative py-24 sm:py-32 lg:py-40">
                 <div class="max-w-3xl">
@@ -116,7 +188,7 @@
                     </div>
                 </div>
             </section>
- 
+
 <!-- About -->
             <section id="about" class="py-20 sm:py-28">
                 <div class="grid lg:grid-cols-2 gap-16 items-start">
@@ -134,14 +206,14 @@
                     </div>
                 </div>
             </section>
- 
+
 <!-- Business -->
             <section id="business" class="py-20 sm:py-28">
                 <div class="mb-16">
                     <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">Business</p>
                     <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1">事業内容</h2>
                 </div>
- 
+
                 <div class="grid sm:grid-cols-2 gap-4">
                     <div class="card-glow rounded-2xl p-8 fade-up">
                         <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-5">
@@ -154,7 +226,7 @@
                             語学学習を中心とした教育アプリの企画から開発、運用まで一貫して対応。iOS/Androidに対応したモバイルアプリを提供します。
                         </p>
                     </div>
- 
+
                     <div class="card-glow rounded-2xl p-8 fade-up fade-up-d1">
                         <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-5">
                             <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +238,7 @@
                             大規模言語モデル（LLM）を活用し、パーソナライズされたフィードバックや学習支援機能を実装。学習効果を最大化します。
                         </p>
                     </div>
- 
+
                     <div class="card-glow rounded-2xl p-8 fade-up fade-up-d2">
                         <div class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center mb-5">
                             <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,7 +250,7 @@
                             ユーザーが継続して学習できるよう、使いやすさとシンプルさを重視したUI/UX設計を行っています。
                         </p>
                     </div>
- 
+
                     <div class="card-glow rounded-2xl p-8 fade-up fade-up-d3">
                         <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-5">
                             <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,7 +264,7 @@
                     </div>
                 </div>
             </section>
- 
+
 <!-- Contact -->
             <section id="contact" class="py-20 sm:py-28 text-center">
                 <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4">Contact</p>
@@ -207,9 +279,9 @@
                     contact@snaptechedge.com
                 </a>
             </section>
- 
+
         </main>
- 
+
         <!-- Footer -->
         <footer class="border-t border-white/5 py-8 text-xs text-neutral-600 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span>© <span id="year"></span> SnapTechEdge</span>
@@ -218,12 +290,12 @@
                 <a href="tokushoho.html" class="hover:text-neutral-400 transition-colors duration-300">特定商取引法に基づく表記</a>
             </div>
         </footer>
- 
+
     </div>
- 
+
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
- 
+
         // Intersection Observer for fade-in animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -233,38 +305,38 @@
                 }
             });
         }, { threshold: 0.1 });
- 
+
         document.querySelectorAll('.fade-up').forEach(el => {
             el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
- 
+
         // Continuous line animation
         (() => {
             const c = document.getElementById('lines');
             const ctx = c.getContext('2d');
             let lines = [];
- 
+
             function resize() {
                 c.width = window.innerWidth;
                 c.height = window.innerHeight;
             }
- 
+
             function spawnLine() {
                 const edge = Math.floor(Math.random() * 4);
                 let x1, y1, x2, y2;
                 const w = c.width, h = c.height;
- 
+
                 // Start from a random edge
                 if (edge === 0) { x1 = Math.random() * w; y1 = 0; }
                 else if (edge === 1) { x1 = w; y1 = Math.random() * h; }
                 else if (edge === 2) { x1 = Math.random() * w; y1 = h; }
                 else { x1 = 0; y1 = Math.random() * h; }
- 
+
                 // End at a different position
                 x2 = Math.random() * w;
                 y2 = Math.random() * h;
- 
+
                 lines.push({
                     x1, y1, x2, y2,
                     progress: 0,
@@ -274,21 +346,21 @@
                     phase: 0 // 0=drawing, 1=fading
                 });
             }
- 
+
             let lastSpawn = 0;
             const SPAWN_INTERVAL = 800;
- 
+
             function draw(time) {
                 ctx.clearRect(0, 0, c.width, c.height);
- 
+
                 if (time - lastSpawn > SPAWN_INTERVAL) {
                     spawnLine();
                     lastSpawn = time;
                 }
- 
+
                 for (let i = lines.length - 1; i >= 0; i--) {
                     const l = lines[i];
- 
+
                     if (l.phase === 0) {
                         l.progress = Math.min(1, l.progress + l.speed);
                         if (l.progress >= 1) l.phase = 1;
@@ -296,16 +368,16 @@
                         l.life -= 0.005;
                         if (l.life <= 0) { lines.splice(i, 1); continue; }
                     }
- 
+
                     const ex = l.x1 + (l.x2 - l.x1) * l.progress;
                     const ey = l.y1 + (l.y2 - l.y1) * l.progress;
                     const a = l.alpha * (l.phase === 0 ? 1 : l.life);
- 
+
                     const grad = ctx.createLinearGradient(l.x1, l.y1, ex, ey);
                     grad.addColorStop(0, `rgba(100,160,255,0)`);
                     grad.addColorStop(0.3, `rgba(100,160,255,${a})`);
                     grad.addColorStop(1, `rgba(150,200,255,${a * 0.6})`);
- 
+
                     ctx.beginPath();
                     ctx.moveTo(l.x1, l.y1);
                     ctx.lineTo(ex, ey);
@@ -313,15 +385,153 @@
                     ctx.lineWidth = 1.8;
                     ctx.stroke();
                 }
- 
+
                 requestAnimationFrame(draw);
             }
- 
+
             window.addEventListener('resize', resize);
             resize();
             requestAnimationFrame(draw);
         })();
+
+        // Animals crossing the screen occasionally
+        (() => {
+            const stage = document.getElementById('animal-stage');
+
+            // Build an SVG animal with individually-animatable leg and tail elements.
+            // Legs are paired in a trot gait: front-left + back-right swing together (.leg-a),
+            // front-right + back-left swing opposite (.leg-b).
+            function buildAnimalSVG(isDog) {
+                const svgNS = 'http://www.w3.org/2000/svg';
+                const svg = document.createElementNS(svgNS, 'svg');
+                svg.setAttribute('viewBox', '0 0 60 40');
+
+                const fill = isDog ? 'rgba(180, 200, 230, 0.9)' : 'rgba(200, 190, 220, 0.9)';
+
+                const el = (tag, attrs) => {
+                    const n = document.createElementNS(svgNS, tag);
+                    for (const k in attrs) n.setAttribute(k, attrs[k]);
+                    return n;
+                };
+
+                if (isDog) {
+                    // Labrador Retriever silhouette
+                    // Warm golden/cream tone distinguishes the Lab from the cooler cat color
+                    const dogFill = 'rgba(210, 185, 145, 0.9)';
+
+                    // Otter tail — thick at base, tapering, held roughly straight out
+                    // Rendered before body so the wag pivot (at right/base) looks natural
+                    const tail = el('path', {
+                        d: 'M 12 23 Q 4 21 2 25 Q 4 27 12 26 Z',
+                        fill: dogFill, class: 'tail'
+                    });
+                    svg.appendChild(tail);
+
+                    // Body — longer and stockier than a generic dog; Labs have a deep chest
+                    svg.appendChild(el('ellipse', { cx: 26, cy: 23, rx: 17, ry: 9, fill: dogFill }));
+
+                    // Chest fullness (slightly lower front belly area)
+                    svg.appendChild(el('ellipse', { cx: 36, cy: 26, rx: 8, ry: 6, fill: dogFill }));
+
+                    // Neck — thick, connects body to head at a gentle upward angle
+                    svg.appendChild(el('path', {
+                        d: 'M 38 18 Q 42 14 48 14 L 48 22 Q 42 24 38 22 Z',
+                        fill: dogFill
+                    }));
+
+                    // Head — broad skull, characteristic of Labs
+                    svg.appendChild(el('ellipse', { cx: 48, cy: 15, rx: 6.5, ry: 5.5, fill: dogFill }));
+
+                    // Muzzle — medium length, fairly wide, square-ish
+                    svg.appendChild(el('path', {
+                        d: 'M 52 13 Q 58 13 58 17 Q 58 19 52 18 Z',
+                        fill: dogFill
+                    }));
+
+                    // Nose
+                    svg.appendChild(el('circle', { cx: 58, cy: 16, r: 1, fill: 'rgba(60, 50, 40, 0.9)' }));
+
+                    // Floppy ear — hangs down along the side of the head (Lab trademark)
+                    svg.appendChild(el('path', {
+                        d: 'M 45 11 Q 43 11 42 14 Q 41 18 44 19 Q 46 19 46 15 Z',
+                        fill: 'rgba(185, 160, 120, 0.95)'
+                    }));
+
+                    // Legs — thick and sturdy, characteristic of Labs
+                    // Pairing: diagonal pairs swing together (trot gait)
+                    // back-left(a), back-right(b), front-left(b), front-right(a)
+                    svg.appendChild(el('rect', { x: 13, y: 28, width: 4, height: 10, rx: 1.5, fill: dogFill, class: 'leg leg-a' }));
+                    svg.appendChild(el('rect', { x: 19, y: 28, width: 4, height: 10, rx: 1.5, fill: dogFill, class: 'leg leg-b' }));
+                    svg.appendChild(el('rect', { x: 34, y: 29, width: 4, height: 9,  rx: 1.5, fill: dogFill, class: 'leg leg-b' }));
+                    svg.appendChild(el('rect', { x: 40, y: 29, width: 4, height: 9,  rx: 1.5, fill: dogFill, class: 'leg leg-a' }));
+                } else {
+                    // Cat tail (curved up, wags)
+                    const tail = el('path', {
+                        d: 'M 12 22 Q 4 18 6 10 Q 9 9 10 16 Q 11 22 15 24 Z',
+                        fill, class: 'tail'
+                    });
+                    svg.appendChild(tail);
+
+                    // Body
+                    svg.appendChild(el('ellipse', { cx: 26, cy: 25, rx: 16, ry: 7, fill }));
+                    // Head
+                    svg.appendChild(el('circle', { cx: 44, cy: 19, r: 6, fill }));
+                    // Ears
+                    svg.appendChild(el('path', { d: 'M 40 13 L 41 8 L 44 13 Z', fill }));
+                    svg.appendChild(el('path', { d: 'M 45 13 L 48 8 L 49 14 Z', fill }));
+
+                    // Legs (thinner) — same diagonal pairing
+                    svg.appendChild(el('rect', { x: 14, y: 29, width: 2.5, height: 9, rx: 1, fill, class: 'leg leg-a' }));
+                    svg.appendChild(el('rect', { x: 19, y: 29, width: 2.5, height: 9, rx: 1, fill, class: 'leg leg-b' }));
+                    svg.appendChild(el('rect', { x: 32, y: 29, width: 2.5, height: 9, rx: 1, fill, class: 'leg leg-b' }));
+                    svg.appendChild(el('rect', { x: 37, y: 29, width: 2.5, height: 9, rx: 1, fill, class: 'leg leg-a' }));
+                }
+
+                return svg;
+            }
+
+            function spawnAnimal() {
+                const isDog = Math.random() < 0.5;
+                const goingRight = Math.random() < 0.5;
+                const duration = 10 + Math.random() * 8; // 10-18 seconds to cross
+                const bottomOffset = 10 + Math.random() * 60;
+                const scale = 0.7 + Math.random() * 0.6;
+
+                const wrap = document.createElement('div');
+                wrap.className = 'animal' + (goingRight ? '' : ' flip');
+                wrap.style.bottom = bottomOffset + 'px';
+                wrap.style.animation = `${goingRight ? 'walkRight' : 'walkLeft'} ${duration}s linear forwards`;
+
+                const inner = document.createElement('div');
+                inner.className = 'animal-inner';
+                inner.style.width = '100%';
+                inner.style.height = '100%';
+                // scale lives on inner because the wrap's transform is consumed by walk animation
+                inner.style.scale = String(scale);
+
+                inner.appendChild(buildAnimalSVG(isDog));
+                wrap.appendChild(inner);
+                stage.appendChild(wrap);
+
+                wrap.addEventListener('animationend', () => wrap.remove());
+            }
+
+            function scheduleNext() {
+                // Random interval: 8 to 20 seconds between appearances
+                const wait = 8000 + Math.random() * 12000;
+                setTimeout(() => {
+                    spawnAnimal();
+                    scheduleNext();
+                }, wait);
+            }
+
+            // First appearance after a short delay
+            setTimeout(() => {
+                spawnAnimal();
+                scheduleNext();
+            }, 4000);
+        })();
     </script>
- 
+
 </body>
 </html>
