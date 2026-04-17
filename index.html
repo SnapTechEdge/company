@@ -43,6 +43,50 @@
         .fade-up-d3 { animation-delay: 0.3s; }
         .fade-up-d4 { animation-delay: 0.4s; }
 
+        /* Type-reveal: a filled bar wipes in from the left, then collapses
+           from the left while the text fades in behind it.
+           Used for headings so they appear with a clean "filling → reveal" effect.
+           Per-instance timing is controlled via --reveal-delay. */
+        .type-reveal {
+            --reveal-delay: 0s;
+            position: relative;
+            display: inline-block;
+        }
+        .type-reveal > .type-reveal-text {
+            opacity: 0;
+            animation: typeRevealText 1.1s ease-out forwards;
+            animation-play-state: paused;
+            animation-delay: var(--reveal-delay);
+        }
+        .type-reveal::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 2px;
+            animation: typeRevealBar 1.1s ease-out forwards;
+            animation-play-state: paused;
+            animation-delay: var(--reveal-delay);
+            pointer-events: none;
+        }
+        .type-reveal.playing::before,
+        .type-reveal.playing > .type-reveal-text {
+            animation-play-state: running;
+        }
+
+        @keyframes typeRevealBar {
+            0%   { width: 0;    left: 0; }
+            45%  { width: 100%; left: 0; }   /* bar fully drawn */
+            100% { width: 0;    left: 100%; }/* collapses from left edge outward to right */
+        }
+        @keyframes typeRevealText {
+            0%, 55%  { opacity: 0; }
+            85%, 100%{ opacity: 1; }
+        }
+
         /* Gradient border card */
         .card-glow {
             position: relative;
@@ -172,7 +216,8 @@
                 <div class="max-w-3xl">
                     <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6 fade-up">AI × Education</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white glow-text fade-up fade-up-d1">
-                        テクノロジーで、<br>学びを進化させる
+                        <span class="type-reveal" style="--reveal-delay:.3s"><span class="type-reveal-text">テクノロジーで、</span></span><br>
+                        <span class="type-reveal" style="--reveal-delay:.6s"><span class="type-reveal-text">学びを進化させる</span></span>
                     </h1>
                     <p class="mt-8 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-xl fade-up fade-up-d2">
                         AIを活用した教育アプリの企画・開発。<br>
@@ -194,7 +239,7 @@
                 <div class="grid lg:grid-cols-2 gap-16 items-start">
                     <div>
                         <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">About</p>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1">私たちについて</h2>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1"><span class="type-reveal" style="--reveal-delay:.2s"><span class="type-reveal-text">私たちについて</span></span></h2>
                     </div>
                     <div class="space-y-6 fade-up fade-up-d2">
                         <p class="text-neutral-400 leading-relaxed text-lg">
@@ -211,7 +256,7 @@
             <section id="business" class="py-20 sm:py-28">
                 <div class="mb-16">
                     <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">Business</p>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1">事業内容</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1"><span class="type-reveal" style="--reveal-delay:.2s"><span class="type-reveal-text">事業内容</span></span></h2>
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-4">
@@ -221,7 +266,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-3">教育アプリ開発</h3>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">教育アプリ開発</span></span></h3>
                         <p class="text-neutral-500 leading-relaxed">
                             語学学習を中心とした教育アプリの企画から開発、運用まで一貫して対応。iOS/Androidに対応したモバイルアプリを提供します。
                         </p>
@@ -233,7 +278,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-3">AI技術の活用</h3>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">AI技術の活用</span></span></h3>
                         <p class="text-neutral-500 leading-relaxed">
                             大規模言語モデル（LLM）を活用し、パーソナライズされたフィードバックや学習支援機能を実装。学習効果を最大化します。
                         </p>
@@ -245,7 +290,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-3">UX重視の設計</h3>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">UX重視の設計</span></span></h3>
                         <p class="text-neutral-500 leading-relaxed">
                             ユーザーが継続して学習できるよう、使いやすさとシンプルさを重視したUI/UX設計を行っています。
                         </p>
@@ -257,7 +302,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-3">継続的な改善</h3>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">継続的な改善</span></span></h3>
                         <p class="text-neutral-500 leading-relaxed">
                             ユーザーフィードバックを元に機能改善を繰り返し、より良いプロダクトへと進化させています。
                         </p>
@@ -268,7 +313,7 @@
 <!-- Contact -->
             <section id="contact" class="py-20 sm:py-28 text-center">
                 <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4">Contact</p>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6">お問い合わせ</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">お問い合わせ</span></span></h2>
                 <p class="text-neutral-500 mb-10 max-w-md mx-auto">
                     ご質問・お問い合わせは下記メールアドレスまでお気軽にご連絡ください。
                 </p>
@@ -300,7 +345,11 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
+                    if (entry.target.classList.contains('type-reveal')) {
+                        entry.target.classList.add('playing');
+                    } else {
+                        entry.target.style.animationPlayState = 'running';
+                    }
                     observer.unobserve(entry.target);
                 }
             });
@@ -308,6 +357,11 @@
 
         document.querySelectorAll('.fade-up').forEach(el => {
             el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Wipe-reveal headings: observe each type-reveal so it fires when scrolled into view
+        document.querySelectorAll('.type-reveal').forEach(el => {
             observer.observe(el);
         });
 
