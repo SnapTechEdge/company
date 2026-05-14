@@ -1,14 +1,19 @@
-# Cloudflare Pages の自動生成 URL を本ドメインへ 301 リダイレクト
-# Search Console「重複しています」警告の根本原因対策。
-#
-# このプロジェクトの pages.dev URL: company-7dv.pages.dev
-# また各デプロイにつき <hash>.company-7dv.pages.dev も生成される。
-#
+# Search Console「重複しています」警告対策の各種リダイレクト。
 # 公式ドキュメント:
 # https://developers.cloudflare.com/pages/configuration/redirects/
 
-# メインの pages.dev URL
-https://company-7dv.pages.dev/* https://snaptechedge.com/:splat 301
+# --- 旧 URL → snapenglishapp.com へ移管したページ ---
+# 過去 snaptechedge.com で配信していた privacy / tokushoho を
+# snapenglishapp.com に集約。Cloudflare Pages の SPA fallback で
+# 削除後もトップページ HTML を 200 で返してしまうため、明示 301。
+/privacy.html https://snapenglishapp.com/privacy.html 301
+/tokushoho.html https://snapenglishapp.com/tokushoho.html 301
 
-# 各デプロイのプレビュー URL (<hash>.company-7dv.pages.dev)
+# --- /index.html を / に統一 (Google の重複判定対策) ---
+/index.html / 301
+
+# --- pages.dev URL → 本ドメインへ ---
+# Cloudflare Pages の自動生成 URL (company-7dv.pages.dev) を本ドメイン
+# (snaptechedge.com) へ 301。各デプロイのプレビュー URL も対象。
+https://company-7dv.pages.dev/* https://snaptechedge.com/:splat 301
 https://:hash.company-7dv.pages.dev/* https://snaptechedge.com/:splat 301
