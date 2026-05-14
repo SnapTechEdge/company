@@ -1,0 +1,8 @@
+# Cloudflare Pages の自動生成 *.pages.dev URL を本ドメインへ 301。
+# Search Console で「重複しています。ユーザーにより、正規ページとして
+# 選択されていません」警告の根本原因 (pages.dev は常に公開・インデックス
+# 可能なドメインのため、SEO 上は正規ドメインへリダイレクトする)。
+#
+# 公式ドキュメント:
+# https://developers.cloudflare.com/pages/configuration/redirects/
+https://:project.pages.dev/* https://snaptechedge.com/:splat 301
