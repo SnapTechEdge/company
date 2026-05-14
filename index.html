@@ -13,6 +13,22 @@
     <meta property="og:url" content="https://snaptechedge.com/">
     <meta property="og:locale" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- pages.dev からアクセスされたら noindex を動的注入 + 本ドメインへ即時 301 リダイレクト。
+         _redirects だけでは安定しないため二重対策 (canonical / robots / redirect)。 -->
+    <script>
+      (function () {
+        var h = location.hostname;
+        if (h.endsWith('.pages.dev')) {
+          // 1. noindex を head に注入 (canonical だけでは弱いケースの保険)
+          var m = document.createElement('meta');
+          m.name = 'robots';
+          m.content = 'noindex, nofollow';
+          document.head.appendChild(m);
+          // 2. 本ドメインへリダイレクト (履歴を残さない replace)
+          location.replace('https://snaptechedge.com' + location.pathname + location.search + location.hash);
+        }
+      })();
+    </script>
     <!-- Tailwind v4 browser CDN (旧 cdn.tailwindcss.com は 2025 年廃止のため差し替え) -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
