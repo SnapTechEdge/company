@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapTechEdge | AI-powered learning apps</title>
+    <meta name="description" content="SnapTechEdge is a Tokyo-based software company that plans and builds learning apps powered by AI.">
+    <!-- 正規 URL を明示 (Search Console 「重複」「リダイレクト」警告対策) -->
+    <link rel="canonical" href="https://snaptechedge.com/en/">
+    <link rel="alternate" hreflang="ja" href="https://snaptechedge.com/">
+    <link rel="alternate" hreflang="en" href="https://snaptechedge.com/en/">
+    <link rel="alternate" hreflang="x-default" href="https://snaptechedge.com/">
+    <meta property="og:title" content="SnapTechEdge | AI-powered learning apps">
+    <meta property="og:description" content="SnapTechEdge is a Tokyo-based software company that plans and builds learning apps powered by AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://snaptechedge.com/en/">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#0a0a0a">
+    <!-- JS が動くことの印。これが付いたときだけ、見出しの動きを止めて待たせる。 -->
+    <script>document.documentElement.classList.add('js');</script>
+    <!-- pages.dev からアクセスされたら noindex を動的注入 + 本ドメインへ即時 301 リダイレクト。
+         _redirects だけでは安定しないため二重対策 (canonical / robots / redirect)。 -->
+    <script>
+      (function () {
+        var h = location.hostname;
+        if (h.endsWith('.pages.dev')) {
+          // 1. noindex を head に注入 (canonical だけでは弱いケースの保険)
+          var m = document.createElement('meta');
+          m.name = 'robots';
+          m.content = 'noindex, nofollow';
+          document.head.appendChild(m);
+          // 2. 本ドメインへリダイレクト (履歴を残さない replace)
+          location.replace('https://snaptechedge.com' + location.pathname + location.search + location.hash);
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- 欧文の Inter は自前。和文は全文字入りが 3.2MB あって自前では持てないので、
+         Google Fonts の Noto Sans JP を使う。OS ごとに字体が変わるのを避けるため。 -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
+    <!-- Tailwind は手元で書き出した CSS を置く（ブラウザ版 CDN は本番非推奨・外部 JS を 1 つ減らす）。
+         クラスを足したら tailwind.css を作り直すこと:
+         npx @tailwindcss/cli@4 -i in.css -o tailwind.css --minify   （in.css は @import "tailwindcss"; @source "./index.html";） -->
+    <link rel="stylesheet" href="/tailwind.css">
+    <style>
+        /* 書体。欧文は Inter を自前で配る（ラテン文字は全部入りなので作り直しは不要）。
+           和文は Noto Sans JP を Google Fonts から読む。自前で全文字入りを持つと
+           3.2MB になり、ページの文字だけに絞ると足すたびに作り直しが要る。OS 任せだと
+           Windows と Mac で字体が変わるため、ここは外部から読む形にしている。 */
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter.woff2') format('woff2');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * { font-family: 'Inter', sans-serif; }
+
+        /* 本文は選択できないようにする。表示を丸ごと持っていかれるのを避けるため。
+           連絡先のメールアドレスだけは、使う人が困るので選べるままにする。 */
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        a[href^="mailto:"],
+        a[href^="mailto:"] *,
+        a[href^="/cdn-cgi/l/email-protection"],
+        a[href^="/cdn-cgi/l/email-protection"] * {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        /* Subtle grain texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' fill='white'/%3E%3C/svg%3E");
+        }
+
+        /* 背景の幾何学模様。中央は薄く、外へ行くほど出す（文字の上で邪魔しない）。 */
+        #lines{
+            -webkit-mask-image:radial-gradient(ellipse 72% 62% at 50% 45%, rgba(0,0,0,.34), #000 72%);
+            mask-image:radial-gradient(ellipse 72% 62% at 50% 45%, rgba(0,0,0,.34), #000 72%);
+        }
+
+        /* Glow effects */
+        .glow-blue { box-shadow: 0 0 80px rgba(59, 130, 246, 0.15); }
+        .glow-text { text-shadow: 0 0 80px rgba(59, 130, 246, 0.3); }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* 動きを減らす設定のときは、画面送りと差し込みの動きも止める。 */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .fade-up { animation: none !important; opacity: 1 !important; }
+            .type-reveal > .type-reveal-text { animation: none !important; opacity: 1 !important; }
+            .type-reveal::before { animation: none !important; }   /* 幅 0 のままなので出ない */
+        }
+
+        /* Fade in animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .fade-up-d1 { animation-delay: 0.1s; }
+        .fade-up-d2 { animation-delay: 0.2s; }
+        .fade-up-d3 { animation-delay: 0.3s; }
+        .fade-up-d4 { animation-delay: 0.4s; }
+
+        /* Type-reveal: a filled bar wipes in from the left, then collapses
+           from the left while the text fades in behind it.
+           Used for headings so they appear with a clean "filling → reveal" effect.
+           Per-instance timing is controlled via --reveal-delay. */
+        .type-reveal {
+            --reveal-delay: 0s;
+            position: relative;
+            display: inline-block;
+        }
+        .type-reveal > .type-reveal-text {
+            opacity: 0;
+            animation: typeRevealText 1.1s ease-out forwards;
+            animation-delay: var(--reveal-delay);
+        }
+        /* 止めておくのは JS が動くときだけ。動かない環境では、そのまま再生されて
+           文字が出る（以前は opacity:0 のまま止まり、見出しが永久に出なかった）。 */
+        .js .type-reveal > .type-reveal-text,
+        .js .type-reveal::before { animation-play-state: paused; }
+        .type-reveal::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: rgba(255, 255, 255, 0.45);   /* 0.92 では地が暗いぶん白が強すぎた（本人指摘） */
+            border-radius: 2px;
+            animation: typeRevealBar 1.1s ease-out forwards;
+            animation-delay: var(--reveal-delay);
+            pointer-events: none;
+        }
+        .type-reveal.playing::before,
+        .type-reveal.playing > .type-reveal-text {
+            animation-play-state: running;
+        }
+
+        @keyframes typeRevealBar {
+            0%   { width: 0;    left: 0; }
+            45%  { width: 100%; left: 0; }   /* bar fully drawn */
+            100% { width: 0;    left: 100%; }/* collapses from left edge outward to right */
+        }
+        @keyframes typeRevealText {
+            0%, 55%  { opacity: 0; }
+            85%, 100%{ opacity: 1; }
+        }
+
+        /* Gradient border card */
+        .card-glow {
+            position: relative;
+            /* 地の濃い色をほぼ不透明に敷き、その上に薄い白をのせる。
+               背景の幾何学模様がカードの中まで透けないようにするため。 */
+            background: linear-gradient(rgba(255,255,255,0.03), rgba(255,255,255,0.03)),
+                        rgba(10,10,12,0.78);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.4s ease;
+        }
+        .card-glow:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)),
+                        rgba(10,10,12,0.82);
+            transform: translateY(-2px);
+        }
+
+        /* フォーカスのアイコン（自作）。カードの中に四角を重ねず、細い線だけで見せる */
+        .focus-icon {
+            display: block;
+            width: 3.5rem;
+            height: 3.5rem;
+            margin-bottom: 1.75rem;
+            stroke: url(#focus-icon-gradient);
+            stroke-width: 1.25;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3));
+            transition: filter 0.4s ease;
+        }
+        .focus-icon .dot { fill: #22d3ee; stroke: none; }
+        .card-glow:hover .focus-icon {
+            filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.6));
+        }
+
+        /* 1 枚目の画面はヒーローだけにする。ヘッダーのぶん（約 80px）を引いた高さを
+           最低の高さにして、中身は上下の真ん中に置く。svh はアドレスバーが出ている
+           ときの高さなので、スマホでも次の節が顔を出さない。 */
+        #hero {
+            min-height: calc(100vh - 80px);
+            min-height: calc(100svh - 80px);
+        }
+
+        /* ヒーローの下の「SCROLL」。押せば次の節へ進む。矢印だけゆっくり上下する。 */
+        .scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: 1.75rem;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 1rem;     /* 矢印だけなので、押せる範囲を広げておく */
+            color: rgba(212, 212, 216, 0.9);   /* 背景の模様に負けない程度まで上げる（実測） */
+            transition: color 0.3s ease;
+        }
+        .scroll-cue:hover { color: #fff; }
+        .scroll-cue svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            animation: scrollCue 2.2s ease-in-out infinite;
+        }
+        @keyframes scrollCue {
+            0%, 100% { transform: translateY(0); opacity: .7; }
+            50%      { transform: translateY(5px); opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-cue svg { animation: none; }
+        }
+
+        /* ヘッダーの帯には背景の模様を出さない。画面いっぱいの地を敷いて模様だけ隠す。
+           地は z=-12 なので、模様（z=-15）は隠れ、オーブの光（z=-10）はそのまま出る。 */
+        header { position: relative; }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(50% - 50vw);
+            width: 100vw;
+            background: #0a0a0a;
+            z-index: -12;
+        }
+        /* ヘッダーとページの境目。帯と同じ幅（画面いっぱい）で 1 本引く。
+           以前は border-b だったので、器の幅までしか伸びていなかった。 */
+        header::after {
+            content: '';
+            position: absolute;
+            left: calc(50% - 50vw);
+            bottom: 0;
+            width: 100vw;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        /* Hero gradient orb */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+        }
+
+        /* (lines rendered via canvas JS) */
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-neutral-300 antialiased" style="overflow-x:clip">
+
+    <!-- Lines Canvas -->
+    <canvas id="lines" class="fixed inset-0" style="z-index:-15; pointer-events:none;"></canvas>
+
+    <!-- Background orbs -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="orb w-[600px] h-[600px] bg-blue-600 -top-40 -right-40"></div>
+        <div class="orb w-[500px] h-[500px] bg-violet-600 top-1/2 -left-60"></div>
+        <div class="orb w-[400px] h-[400px] bg-cyan-500 -bottom-40 right-1/4"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6">
+
+        <!-- Header -->
+        <header class="flex items-center justify-between py-6">
+            <a href="/" class="text-base sm:text-lg font-semibold tracking-tight text-white whitespace-nowrap mr-3">
+                SnapTechEdge
+            </a>
+            <nav class="flex items-center gap-3 sm:gap-8 text-xs sm:text-sm tracking-wide text-neutral-500 whitespace-nowrap">
+                <a href="/en/#about" class="hover:text-white transition-colors duration-300">ABOUT</a>
+                <a href="/en/#business" class="hover:text-white transition-colors duration-300">FOCUS</a>
+                <a href="/en/#contact" class="hover:text-white transition-colors duration-300">CONTACT</a>
+                <a href="/" class="hover:text-white transition-colors duration-300" hreflang="ja">JP</a>
+            </nav>
+        </header>
+
+        <main>
+
+            <!-- Hero -->
+            <section id="hero" class="relative flex flex-col items-center justify-center py-16">
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6"><span class="type-reveal" style="--reveal-delay:0s"><span class="type-reveal-text">AI × Learning</span></span></p>
+                    <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-[1.15] text-white glow-text">
+                        <span class="type-reveal" style="--reveal-delay:.3s"><span class="type-reveal-text">Advancing learning</span></span><br>
+                        <span class="type-reveal" style="--reveal-delay:.6s"><span class="type-reveal-text">through technology</span></span>
+                    </h1>
+                    <p class="mt-8 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-xl mx-auto [word-break:auto-phrase]">
+                        <span class="type-reveal" style="--reveal-delay:.9s"><span class="type-reveal-text">We plan and build learning apps powered by AI.</span></span><br>
+                        <span class="type-reveal" style="--reveal-delay:1.1s"><span class="type-reveal-text">Products that make learning efficient and enjoyable, for everyone.</span></span>
+                    </p>
+                    <div class="mt-10 flex items-center justify-center gap-4 fade-up fade-up-d3">
+                        <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300">
+                            Contact us
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#about" class="scroll-cue" aria-label="Scroll down">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+            </section>
+
+<!-- About -->
+            <section id="about" class="py-20 sm:py-28">
+                <div class="max-w-3xl mx-auto text-center">
+                    <div>
+                        <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">About</p>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1"><span class="type-reveal" style="--reveal-delay:.2s"><span class="type-reveal-text">About us</span></span></h2>
+                    </div>
+                    <div class="mt-8 fade-up fade-up-d2">
+                        <p class="text-neutral-400 leading-relaxed text-lg [word-break:auto-phrase]">
+                            SnapTechEdge plans, designs and builds learning apps powered by AI.
+                        </p>
+                        <p class="text-neutral-400 leading-relaxed text-lg [word-break:auto-phrase]">
+                            Our theme is “learning more efficiently, for less.” We work on it from both sides — UX and technology — to deliver a learning experience worth the time people put in.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+<!-- Business -->
+            <section id="business" class="py-20 sm:py-28">
+                <div class="mb-16 text-center">
+                    <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4 fade-up">Focus</p>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight fade-up fade-up-d1"><span class="type-reveal" style="--reveal-delay:.2s"><span class="type-reveal-text">What we do</span></span></h2>
+                </div>
+
+                <svg width="0" height="0" class="absolute" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="focus-icon-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="48" y2="48">
+                            <stop offset="0" stop-color="#60a5fa"/>
+                            <stop offset="1" stop-color="#22d3ee"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="card-glow rounded-2xl p-8 fade-up">
+                        <svg class="focus-icon" fill="none" viewBox="10.4 0 48 48" aria-hidden="true">
+                            <rect x="11" y="4.5" width="22" height="39" rx="4.5"/>
+                            <path d="M19 9h6"/>
+                            <path d="M25 18h15a4 4 0 0 1 4 4v7a4 4 0 0 1-4 4h-7l-5 5v-5h-3a4 4 0 0 1-4-4v-7a4 4 0 0 1 4-4z" fill="#141414"/>
+                            <path d="M27 24h11M27 28h7"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">Learning app development</span></span></h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            We cover the whole path — planning, development and operation — for learning apps, centred on language learning, and ship them for iOS and Android.
+                        </p>
+                    </div>
+
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d1">
+                        <svg class="focus-icon" fill="none" viewBox="7.4 0 48 48" aria-hidden="true">
+                            <path d="M24 11c1.3 7.4 5.6 11.7 13 13-7.4 1.3-11.7 5.6-13 13-1.3-7.4-5.6-11.7-13-13 7.4-1.3 11.7-5.6 13-13z"/>
+                            <path d="M8.5 13.5A19 19 0 0 1 34.5 8.1"/>
+                            <path d="M39.5 34.5A19 19 0 0 1 13.5 39.9"/>
+                            <circle class="dot" cx="38" cy="10.5" r="2"/>
+                            <circle class="dot" cx="10" cy="37.5" r="2"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">Applied AI</span></span></h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            We use large language models to build personalised feedback and study support, so the time spent learning goes further.
+                        </p>
+                    </div>
+
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d2">
+                        <svg class="focus-icon" fill="none" viewBox="3.9 0 48 48" aria-hidden="true">
+                            <circle cx="24" cy="24" r="7"/>
+                            <path d="M11.9 24A12.1 12.1 0 0 1 24 11.9"/>
+                            <path d="M36.1 24A12.1 12.1 0 0 1 24 36.1"/>
+                            <path d="M4.5 24A19.5 19.5 0 0 1 24 4.5"/>
+                            <path d="M43.5 24A19.5 19.5 0 0 1 24 43.5"/>
+                            <circle class="dot" cx="24" cy="24" r="2.5"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">UX-led design</span></span></h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            We design around ease and simplicity, so people can keep learning instead of giving up.
+                        </p>
+                    </div>
+
+                    <div class="card-glow rounded-2xl p-8 fade-up fade-up-d3">
+                        <svg class="focus-icon" fill="none" viewBox="2.4 0 48 48" aria-hidden="true">
+                            <path d="M5 41h8.5v-9H22v-9h8.5v-9H43"/>
+                            <path d="M37 8l6 6-6 6"/>
+                            <path d="M5 33V24M13.5 24v-9M22 15V8" opacity=".35"/>
+                            <circle class="dot" cx="5" cy="41" r="2"/>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white mb-3"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">Continuous improvement</span></span></h3>
+                        <p class="text-neutral-400 leading-relaxed">
+                            We improve the product in small steps, guided by what people tell us.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+<!-- Contact -->
+            <section id="contact" class="py-20 sm:py-28 text-center">
+                <p class="text-xs font-medium text-blue-400 tracking-widest uppercase mb-4">Contact</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6"><span class="type-reveal" style="--reveal-delay:.1s"><span class="type-reveal-text">Get in touch</span></span></h2>
+                <p class="text-neutral-400 mb-10 max-w-xl mx-auto [word-break:auto-phrase]">
+                    For questions or enquiries, please email us at the address below.
+                </p>
+                <a href="mailto:contact@snaptechedge.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    contact@snaptechedge.com
+                </a>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/5 py-8 text-xs text-neutral-400 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <span>© <span id="year">2026</span> SnapTechEdge</span>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('type-reveal')) {
+                        entry.target.classList.add('playing');
+                    } else {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Wipe-reveal headings: observe each type-reveal so it fires when scrolled into view
+        document.querySelectorAll('.type-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // カードを押すと 1 回転する。遊びなので、入れ替わりの動きには触らない。
+        // element.animate で回すのは、カードに付いている fade-up の animation を
+        // 書き換えずに済ませるため。途中は少し縮めて、回っても隣の列からはみ出さない。
+        (() => {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            document.querySelectorAll('.card-glow').forEach((card) => {
+                card.addEventListener('click', () => {
+                    if (reduce.matches || card.dataset.spinning) return;
+                    card.dataset.spinning = '1';
+                    card.style.zIndex = '5';      // 回っている間だけ隣の上に出す
+                    const spin = card.animate([
+                        { transform: 'rotate(0deg) scale(1)' },
+                        { transform: 'rotate(180deg) scale(.82)' },
+                        { transform: 'rotate(360deg) scale(1)' }
+                    ], { duration: 850, easing: 'cubic-bezier(.33, 0, .2, 1)' });
+                    const done = () => {
+                        card.style.zIndex = '';
+                        delete card.dataset.spinning;
+                    };
+                    spin.finished.then(done, done);   // 取り消されたときも片付ける
+                });
+            });
+        })();
+
+        // 背景の幾何学模様（三角格子をゆっくり回す）
+        // 以前は端からランダムな線が伸びて消える実装だった（オーナー指示で幾何学模様へ）。
+        // 背景なのでずっと動く。負荷を抑えるため、1 フレームで stroke するパスを 9 本に収め、
+        // 30fps に間引き、タブが隠れたら止める。
+        // 動きを減らす設定のときは、止まった絵を 1 枚だけ描く。
+        (() => {
+            const c = document.getElementById('lines');
+            if (!c || !c.getContext) return;
+            const ctx = c.getContext('2d');
+
+            const SPACING = 58;          // 濃い 3 方向の間隔（CSS px）
+            const COLOR = '120,170,245'; // 以前の線と同系の青
+            const ALPHA = 0.17;        // 0.09 だと地とオーブに負けて見えなかった（実測）
+            const ALPHA_THIN = 0.085;    // 間に入れる 3 方向は濃い線の半分
+            const ALPHA_BOLD = 0.29;     // 濃い方向の 4 本ごとに 1 本だけ強め、粗い格子を重ねる
+            const WIDE = 1.5;            // 薄い 3 方向は間隔を 1.5 倍にして、線を増やしすぎない
+            const EVERY = 4;             // 強める間隔（本）
+            const TURN_MS = 420000;      // 全体の回転。1 周 7 分
+            const DRIFT_MS = 97000;      // ゆっくり横に揺らす周期
+            const FRAME_MS = 33;         // 30fps に間引く
+            // 30 度ずつの 6 方向。方向は固定する。方向ごとに別々に傾けると 3 方向の関係が
+            // 崩れて格子に見えなくなる（Codex 指摘）ので、動きは全体の回転・間隔の伸縮・
+            // 方向ごとの横すべりだけで作る。
+            const DIRS = 6;
+            // 間隔は長い周期で ±8% 開いて閉じる。
+            const BREATH_MS = 67000;
+            const BREATH = 0.08;
+            // 方向ごとに、自分の法線方向へ別の速さ・向きですべらせる（交点が動く）。
+            // 1 周で間隔 1 つ分すべり、剰余で折り返すので、何分経っても端に空白は出ない。
+            // 折り返す幅は、濃い方向だけ間隔の 4 つ分にする。間隔 1 つ分で折り返すと
+            // 線の番号が 1 つずれ、強める線が入れ替わって見える（Codex 指摘）。
+            const SLIDE_MS = [37000, -53000, 71000, -83000, 97000, -113000];
+
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let dpr = 1, w = 0, h = 0, span = 0;
+            let raf = 0, prev = 0, elapsed = 0;
+
+            function size() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth;
+                h = window.innerHeight;
+                c.width = Math.round(w * dpr);
+                c.height = Math.round(h * dpr);
+                c.style.width = w + 'px';
+                c.style.height = h + 'px';
+                // 幅と高さを入れ直すと状態が消えるので、ここで引き直す。
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.lineWidth = 1;         // CSS px で 1 本（実画素 1 本だと細くて消える）
+                // 回しても角が出ないよう、対角線より長く取る（間隔はいちばん広いものに合わせる）。
+                span = Math.hypot(w, h) + SPACING * WIDE * 4;
+            }
+
+            function paint(ms) {
+                const angle = (ms / TURN_MS) * Math.PI * 2;
+                const drift = Math.sin((ms / DRIFT_MS) * Math.PI * 2) * (SPACING / 2);
+                const breath = 1 + BREATH * Math.sin((ms / BREATH_MS) * Math.PI * 2);
+                const half = span / 2;
+
+                ctx.clearRect(0, 0, w, h);
+                ctx.save();
+                ctx.translate(w / 2 + drift, h / 2 - drift * 0.6);
+                ctx.rotate(angle);
+                // 0 / 30 / 60 / 90 / 120 / 150 度。偶数番が濃い 3 方向（元の三角格子）、
+                // 奇数番がその間に入る薄い 3 方向。濃さと間隔が交互なので、細かい格子と
+                // 粗い格子が重なって見える。方向ごとに 1〜2 本のパスにまとめて描く。
+                for (let k = 0; k < DIRS; k++) {
+                    const main = k % 2 === 0;
+                    const gap = SPACING * (main ? 1 : WIDE) * breath;
+                    const slide = (ms / SLIDE_MS[k]) * gap % (gap * (main ? EVERY : 1));
+                    ctx.save();
+                    ctx.rotate(k * Math.PI / DIRS);
+                    const path = new Path2D();
+                    const bold = main ? new Path2D() : null;
+                    const from = Math.ceil((-half - slide) / gap);
+                    const to = Math.floor((half - slide) / gap);
+                    for (let i = from; i <= to; i++) {
+                        const y = slide + i * gap;
+                        const p = (bold && i % EVERY === 0) ? bold : path;
+                        p.moveTo(-half, y);
+                        p.lineTo(half, y);
+                    }
+                    ctx.strokeStyle = 'rgba(' + COLOR + ',' + (main ? ALPHA : ALPHA_THIN) + ')';
+                    ctx.stroke(path);
+                    if (bold) {
+                        ctx.strokeStyle = 'rgba(' + COLOR + ',' + ALPHA_BOLD + ')';
+                        ctx.stroke(bold);
+                    }
+                    ctx.restore();
+                }
+                ctx.restore();
+            }
+
+            function loop(ts) {
+                raf = requestAnimationFrame(loop);
+                if (!prev) prev = ts;
+                const dt = ts - prev;
+                if (dt < FRAME_MS) return;
+                prev = ts;
+                elapsed += dt;          // 経過で回すので、止めて再開しても飛ばない
+                paint(elapsed);
+            }
+
+            function start() {
+                if (raf || reduce.matches) return;
+                prev = 0;
+                raf = requestAnimationFrame(loop);
+            }
+            function stop() {
+                if (!raf) return;
+                cancelAnimationFrame(raf);
+                raf = 0;
+            }
+
+            // 端末の向きやアドレスバーの出入りで何度も作り直さない。
+            let timer = 0, lastW = 0, lastH = 0;
+            function onResize() {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 120) return;
+                    lastW = window.innerWidth;
+                    lastH = window.innerHeight;
+                    size();
+                    paint(elapsed);
+                }, 150);
+            }
+
+            size();
+            lastW = w; lastH = h;
+            paint(0);
+            if (!reduce.matches) start();
+
+            window.addEventListener('resize', onResize);
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) stop(); else start();
+            });
+            // 開いている間に設定が変わっても追従する。
+            (reduce.addEventListener ? reduce.addEventListener.bind(reduce, 'change')
+                                     : reduce.addListener.bind(reduce))(function () {
+                if (reduce.matches) { stop(); paint(elapsed); } else start();
+            });
+        })();
+
+    </script>
+
+</body>
+</html>
