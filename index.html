@@ -36,6 +36,18 @@
 
         * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 
+        /* 本文は選択できないようにする。表示を丸ごと持っていかれるのを避けるため。
+           連絡先のメールアドレスだけは、使う人が困るので選べるままにする。 */
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        a[href^="mailto:"],
+        a[href^="mailto:"] * {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
         /* Subtle grain texture */
         body::before {
             content: '';
@@ -183,10 +195,10 @@
             <a href="/" class="text-base sm:text-lg font-semibold tracking-tight text-white whitespace-nowrap mr-3">
                 SnapTechEdge
             </a>
-            <nav class="flex items-center gap-3 sm:gap-8 text-xs sm:text-sm text-neutral-500 whitespace-nowrap">
-                <a href="#about" class="hover:text-white transition-colors duration-300">About</a>
-                <a href="#business" class="hover:text-white transition-colors duration-300">フォーカス</a>
-                <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
+            <nav class="flex items-center gap-3 sm:gap-8 text-xs sm:text-sm tracking-wide text-neutral-500 whitespace-nowrap">
+                <a href="#about" class="hover:text-white transition-colors duration-300">ABOUT</a>
+                <a href="#business" class="hover:text-white transition-colors duration-300">FOCUS</a>
+                <a href="#contact" class="hover:text-white transition-colors duration-300">CONTACT</a>
             </nav>
         </header>
 
