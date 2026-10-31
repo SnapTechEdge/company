@@ -213,6 +213,17 @@
             background: #0a0a0a;
             z-index: -12;
         }
+        /* ヘッダーとページの境目。帯と同じ幅（画面いっぱい）で 1 本引く。
+           以前は border-b だったので、器の幅までしか伸びていなかった。 */
+        header::after {
+            content: '';
+            position: absolute;
+            left: calc(50% - 50vw);
+            bottom: 0;
+            width: 100vw;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.09);
+        }
 
         /* Hero gradient orb */
         .orb {
@@ -240,7 +251,7 @@
     <div class="max-w-5xl mx-auto px-6">
 
         <!-- Header -->
-        <header class="flex items-center justify-between py-6 border-b border-white/5">
+        <header class="flex items-center justify-between py-6">
             <a href="/" class="text-base sm:text-lg font-semibold tracking-tight text-white whitespace-nowrap mr-3">
                 SnapTechEdge
             </a>
