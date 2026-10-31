@@ -165,6 +165,20 @@
             filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.6));
         }
 
+        /* ヘッダーの帯には背景の模様を出さない。画面いっぱいの地を敷いて模様だけ隠す。
+           地は z=-12 なので、模様（z=-15）は隠れ、オーブの光（z=-10）はそのまま出る。 */
+        header { position: relative; }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(50% - 50vw);
+            width: 100vw;
+            background: #0a0a0a;
+            z-index: -12;
+        }
+
         /* Hero gradient orb */
         .orb {
             position: absolute;
@@ -176,7 +190,7 @@
         /* (lines rendered via canvas JS) */
     </style>
 </head>
-<body class="bg-[#0a0a0a] text-neutral-300 antialiased">
+<body class="bg-[#0a0a0a] text-neutral-300 antialiased" style="overflow-x:clip">
 
     <!-- Lines Canvas -->
     <canvas id="lines" class="fixed inset-0" style="z-index:-15; pointer-events:none;"></canvas>
@@ -209,7 +223,7 @@
                 <div class="max-w-3xl mx-auto text-center">
                     <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6"><span class="type-reveal" style="--reveal-delay:0s"><span class="type-reveal-text">AI × Education</span></span></p>
                     <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-[1.15] text-white glow-text">
-                        <span class="type-reveal" style="--reveal-delay:.3s"><span class="type-reveal-text">テクノロジーで、</span></span><br>
+                        <span class="type-reveal" style="--reveal-delay:.3s"><span class="type-reveal-text">テクノロジーで</span></span><br>
                         <span class="type-reveal" style="--reveal-delay:.6s"><span class="type-reveal-text">学びを進化させる</span></span>
                     </h1>
                     <p class="mt-8 text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-xl mx-auto">
