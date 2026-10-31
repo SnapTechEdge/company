@@ -5,6 +5,8 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'self'; base-uri 'self'; form-action 'none'; object-src 'none'
 
+# tailwind.css は HTML 側で ?v=... を付けて読む。中身を変えたら必ずその版も上げること。
+# （この指定は Pages 側の既定に負けることがあるので、版の付け替えが本命。）
 /tailwind.css
   Cache-Control: public, max-age=3600, must-revalidate
 

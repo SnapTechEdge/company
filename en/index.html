@@ -42,9 +42,10 @@
          Google Fonts の Noto Sans JP を使う。OS ごとに字体が変わるのを避けるため。 -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
     <!-- Tailwind は手元で書き出した CSS を置く（ブラウザ版 CDN は本番非推奨・外部 JS を 1 つ減らす）。
-         クラスを足したら tailwind.css を作り直すこと:
+         クラスを足したら tailwind.css を作り直し、下の ?v= も上げること（上げないと
+         古い CSS が最大 4 時間残り、新しい HTML と食い違う）:
          npx @tailwindcss/cli@4 -i in.css -o tailwind.css --minify   （in.css は @import "tailwindcss"; @source "./index.html";） -->
-    <link rel="stylesheet" href="/tailwind.css">
+    <link rel="stylesheet" href="/tailwind.css?v=20261101">
     <style>
         /* 書体。欧文は Inter を自前で配る（ラテン文字は全部入りなので作り直しは不要）。
            和文は Noto Sans JP を Google Fonts から読む。自前で全文字入りを持つと
