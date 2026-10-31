@@ -37,20 +37,14 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <!-- 書体は自前で配る（Google Fonts への接続をなくす）。読み込みを早めに始める。 -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-jp.woff2" crossorigin>
     <!-- Tailwind は手元で書き出した CSS を置く（ブラウザ版 CDN は本番非推奨・外部 JS を 1 つ減らす）。
          クラスを足したら tailwind.css を作り直すこと:
          npx @tailwindcss/cli@4 -i in.css -o tailwind.css --minify   （in.css は @import "tailwindcss"; @source "./index.html";） -->
     <link rel="stylesheet" href="/tailwind.css">
     <style>
-        /* 書体。可変フォントを、このページに出る文字（＋かな・カタカナ・約物・ASCII）だけに
-           絞って自前で置いている。太さは 400〜700 を 1 ファイルで賄う。
-           日本語の文字を増やしたら作り直すこと:
-             fonttools varLib.instancer "NotoSansJP[wght].ttf" wght=400:700 -o noto-var.ttf
-             pyftsubset noto-var.ttf --unicodes-file=ja.txt --flavor=woff2 \
-               --layout-features='kern,liga,calt,palt,vert,vrt2' --output-file=fonts/noto-sans-jp.woff2
-           （ja.txt はページに出る文字＋U+3000-30FF・U+FF01-FF5E・ASCII。
-             Inter は opsz=14 で固定して同じ手順） */
+        /* 書体。欧文は Inter を自前で配る（ラテン文字は全部入りなので作り直しは不要）。
+           和文は OS の書体に任せる。全文字入りの和文は 3.2MB あり載せられないし、
+           ページの文字だけ入れると文字を足すたびに作り直しが要るため。 */
         @font-face {
             font-family: 'Inter';
             src: url('/fonts/inter.woff2') format('woff2');
@@ -58,15 +52,12 @@
             font-style: normal;
             font-display: swap;
         }
-        @font-face {
-            font-family: 'Noto Sans JP';
-            src: url('/fonts/noto-sans-jp.woff2') format('woff2');
-            font-weight: 400 700;
-            font-style: normal;
-            font-display: swap;
-        }
 
-        * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
+        * {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI',
+                         'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+                         'Yu Gothic UI', 'Yu Gothic', Meiryo, 'Noto Sans JP', sans-serif;
+        }
 
         /* 本文は選択できないようにする。表示を丸ごと持っていかれるのを避けるため。
            連絡先のメールアドレスだけは、使う人が困るので選べるままにする。 */

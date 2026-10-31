@@ -8,10 +8,9 @@
 /tailwind.css
   Cache-Control: public, max-age=3600, must-revalidate
 
-# ファイル名を変えずに作り直すので、immutable にはしない。
-# そうしないと、文字を足して作り直しても古い書体が 1 年残り、追加した漢字が出ない。
+# 名前を変えずに差し替える場合があるので、immutable にはしない。
 /fonts/*
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=604800, must-revalidate
 
 /icon-32.png
   Cache-Control: public, max-age=604800
