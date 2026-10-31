@@ -287,18 +287,19 @@
     <div class="max-w-5xl mx-auto px-6">
 
         <!-- Header -->
-        <!-- 3 列（ロゴ / メニュー / 言語）。真ん中の列を画面の中央に置くため、
-             両端の列を 1fr でそろえている。 -->
-        <header class="grid grid-cols-[1fr_auto_1fr] items-center py-6">
-            <a href="/" class="justify-self-start text-base sm:text-lg font-semibold tracking-tight text-white whitespace-nowrap mr-3">
+        <!-- 広い画面は 3 列（ロゴ / メニュー / 言語）にして、真ん中の列を画面の中央へ。
+             狭い画面では 3 つを中央に置くだけの幅が無い（ロゴ 110 + メニュー 171 +
+             言語 17 で、両端をそろえると 391px 要る）ので、横並びのまま端に寄せる。 -->
+        <header class="flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] py-6">
+            <a href="/" class="sm:justify-self-start text-base sm:text-lg font-semibold tracking-tight text-white whitespace-nowrap mr-3">
                 SnapTechEdge
             </a>
-            <nav class="justify-self-center flex items-center gap-3 sm:gap-8 text-xs sm:text-sm tracking-wide text-neutral-500 whitespace-nowrap">
+            <nav class="sm:justify-self-center flex items-center gap-3 sm:gap-8 text-xs sm:text-sm tracking-wide text-neutral-500 whitespace-nowrap">
                 <a href="/en/#about" class="hover:text-white transition-colors duration-300">ABOUT</a>
                 <a href="/en/#business" class="hover:text-white transition-colors duration-300">FOCUS</a>
                 <a href="/en/#contact" class="hover:text-white transition-colors duration-300">CONTACT</a>
             </nav>
-            <a href="/" class="justify-self-end text-xs sm:text-sm tracking-wide text-neutral-500 hover:text-white transition-colors duration-300" hreflang="ja">JP</a>
+            <a href="/" class="sm:justify-self-end text-xs sm:text-sm tracking-wide text-neutral-500 hover:text-white transition-colors duration-300" hreflang="ja">JP</a>
         </header>
 
         <main>
