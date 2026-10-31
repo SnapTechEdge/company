@@ -383,6 +383,29 @@
             observer.observe(el);
         });
 
+        // カードを押すと 1 回転する。遊びなので、入れ替わりの動きには触らない。
+        // element.animate で回すのは、カードに付いている fade-up の animation を
+        // 書き換えずに済ませるため。途中は少し縮めて、回っても隣の列からはみ出さない。
+        (() => {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            document.querySelectorAll('.card-glow').forEach((card) => {
+                card.addEventListener('click', () => {
+                    if (reduce.matches || card.dataset.spinning) return;
+                    card.dataset.spinning = '1';
+                    card.style.zIndex = '5';      // 回っている間だけ隣の上に出す
+                    const spin = card.animate([
+                        { transform: 'rotate(0deg) scale(1)' },
+                        { transform: 'rotate(180deg) scale(.82)' },
+                        { transform: 'rotate(360deg) scale(1)' }
+                    ], { duration: 850, easing: 'cubic-bezier(.33, 0, .2, 1)' });
+                    spin.finished.then(() => {
+                        card.style.zIndex = '';
+                        delete card.dataset.spinning;
+                    });
+                });
+            });
+        })();
+
         // 背景の幾何学模様（三角格子をゆっくり回す）
         // 以前は端からランダムな線が伸びて消える実装だった（オーナー指示で幾何学模様へ）。
         // 背景なのでずっと動く。負荷を抑えるため、1 フレームで stroke するパスを 9 本に収め、
