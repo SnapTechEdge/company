@@ -35,16 +35,21 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <!-- 書体は自前で配る（Google Fonts への接続をなくす）。読み込みを早めに始める。 -->
+    <!-- 欧文の Inter は自前。和文は全文字入りが 3.2MB あって自前では持てないので、
+         Google Fonts の Noto Sans JP を使う。OS ごとに字体が変わるのを避けるため。 -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
     <!-- Tailwind は手元で書き出した CSS を置く（ブラウザ版 CDN は本番非推奨・外部 JS を 1 つ減らす）。
          クラスを足したら tailwind.css を作り直すこと:
          npx @tailwindcss/cli@4 -i in.css -o tailwind.css --minify   （in.css は @import "tailwindcss"; @source "./index.html";） -->
     <link rel="stylesheet" href="/tailwind.css">
     <style>
         /* 書体。欧文は Inter を自前で配る（ラテン文字は全部入りなので作り直しは不要）。
-           和文は OS の書体に任せる。全文字入りの和文は 3.2MB あり載せられないし、
-           ページの文字だけ入れると文字を足すたびに作り直しが要るため。 */
+           和文は Noto Sans JP を Google Fonts から読む。自前で全文字入りを持つと
+           3.2MB になり、ページの文字だけに絞ると足すたびに作り直しが要る。OS 任せだと
+           Windows と Mac で字体が変わるため、ここは外部から読む形にしている。 */
         @font-face {
             font-family: 'Inter';
             src: url('/fonts/inter.woff2') format('woff2');
@@ -53,11 +58,7 @@
             font-display: swap;
         }
 
-        * {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI',
-                         'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
-                         'Yu Gothic UI', 'Yu Gothic', Meiryo, 'Noto Sans JP', sans-serif;
-        }
+        * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 
         /* 本文は選択できないようにする。表示を丸ごと持っていかれるのを避けるため。
            連絡先のメールアドレスだけは、使う人が困るので選べるままにする。 */
