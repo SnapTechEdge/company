@@ -172,6 +172,7 @@
 
             <!-- Hero -->
             <section class="relative py-24 sm:py-32 lg:py-40">
+            <div class="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-14 lg:gap-12 items-center">
                 <div class="max-w-3xl">
                     <p class="text-sm font-medium text-blue-400 tracking-widest uppercase mb-6"><span class="type-reveal" style="--reveal-delay:0s"><span class="type-reveal-text">AI × Education</span></span></p>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-white glow-text">
@@ -191,6 +192,12 @@
                         </a>
                     </div>
                 </div>
+                <!-- 学びの装置の分解図。下から、日々の反復・問いと答え・AI の層・外へ出ていく線。 -->
+                <img src="hero-device.svg"
+                     alt="学びの装置を上下に分解した図。下から、日々の反復を表す土台、問いと答えのカード、AIの層、そして外へ出ていく線が並ぶ"
+                     width="860" height="940" decoding="async"
+                     class="w-full max-w-[320px] lg:max-w-none mx-auto lg:mx-0">
+            </div>
             </section>
 
 <!-- About -->
@@ -333,9 +340,18 @@
             const SPACING = 58;          // 平行線の間隔（CSS px）
             const COLOR = '120,170,245'; // 以前の線と同系の青
             const ALPHA = 0.17;        // 0.09 だと地とオーブに負けて見えなかった（実測）
-            const TURN_MS = 420000;      // 1 周 7 分。格子は 60 度で元に戻るので見た目の周期は 70 秒
+            const TURN_MS = 420000;      // 全体の回転。1 周 7 分
             const DRIFT_MS = 97000;      // ゆっくり横に揺らす周期
             const FRAME_MS = 33;         // 30fps に間引く
+            // 3 方向それぞれを別の周期で ±5 度ゆらす。60 度の等間隔が崩れ（方向の差は
+            // 50〜70 度の範囲で動く）、三角形がゆがみながら元に戻る。±10 度を超えると
+            // 格子に見えなくなる（Codex 指摘で 5 度から始める）。周期は 2π を掛けて秒で効かせる。
+            const SWING_DEG = 5;
+            const SWING_MS = [23000, 31000, 41000];
+            const SWING_PHASE = [0, 2.1, 4.3];
+            // 間隔も長い周期で ±8% 開いて閉じる。
+            const BREATH_MS = 67000;
+            const BREATH = 0.08;
 
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
             let dpr = 1, w = 0, h = 0, span = 0;
@@ -360,21 +376,26 @@
             function paint(ms) {
                 const angle = (ms / TURN_MS) * Math.PI * 2;
                 const drift = Math.sin((ms / DRIFT_MS) * Math.PI * 2) * (SPACING / 2);
+                const gap = SPACING * (1 + BREATH * Math.sin((ms / BREATH_MS) * Math.PI * 2));
                 const half = span / 2;
 
                 ctx.clearRect(0, 0, w, h);
                 ctx.save();
                 ctx.translate(w / 2 + drift, h / 2 - drift * 0.6);
                 ctx.rotate(angle);
-                // 0 / 60 / 120 度の 3 方向。各方向をまとめて 1 本のパスにする。
+                // 0 / 60 / 120 度の 3 方向。各方向をまとめて 1 本のパスにして 1 回で描く。
                 for (let k = 0; k < 3; k++) {
+                    const swing = (SWING_DEG * Math.PI / 180) *
+                                  Math.sin((ms / SWING_MS[k]) * Math.PI * 2 + SWING_PHASE[k]);
+                    ctx.save();
+                    ctx.rotate(k * Math.PI / 3 + swing);
                     const path = new Path2D();
-                    for (let y = -half; y <= half; y += SPACING) {
+                    for (let y = -half; y <= half; y += gap) {
                         path.moveTo(-half, y);
                         path.lineTo(half, y);
                     }
                     ctx.stroke(path);
-                    ctx.rotate(Math.PI / 3);
+                    ctx.restore();
                 }
                 ctx.restore();
             }
