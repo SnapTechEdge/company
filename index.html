@@ -32,15 +32,39 @@
         }
       })();
     </script>
-    <!-- 書体。@import だと <style> の中で描画を止めるので link に分けている。 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- 書体は自前で配る（Google Fonts への接続をなくす）。読み込みを早めに始める。 -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-jp.woff2" crossorigin>
     <!-- Tailwind は手元で書き出した CSS を置く（ブラウザ版 CDN は本番非推奨・外部 JS を 1 つ減らす）。
          クラスを足したら tailwind.css を作り直すこと:
          npx @tailwindcss/cli@4 -i in.css -o tailwind.css --minify   （in.css は @import "tailwindcss"; @source "./index.html";） -->
     <link rel="stylesheet" href="/tailwind.css">
     <style>
+        /* 書体。可変フォントを、このページに出る文字（＋かな・カタカナ・約物・ASCII）だけに
+           絞って自前で置いている。太さは 400〜700 を 1 ファイルで賄う。
+           日本語の文字を増やしたら作り直すこと:
+             fonttools varLib.instancer "NotoSansJP[wght].ttf" wght=400:700 -o noto-var.ttf
+             pyftsubset noto-var.ttf --unicodes-file=ja.txt --flavor=woff2 \
+               --layout-features='kern,liga,calt,palt,vert,vrt2' --output-file=fonts/noto-sans-jp.woff2
+           （ja.txt はページに出る文字＋U+3000-30FF・U+FF01-FF5E・ASCII。
+             Inter は opsz=14 で固定して同じ手順） */
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/inter.woff2') format('woff2');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Noto Sans JP';
+            src: url('/fonts/noto-sans-jp.woff2') format('woff2');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+        }
 
         * { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 
