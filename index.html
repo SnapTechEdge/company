@@ -322,29 +322,36 @@
 
         // 背景の幾何学模様（三角格子をゆっくり回す）
         // 以前は端からランダムな線が伸びて消える実装だった（オーナー指示で幾何学模様へ）。
-        // 背景なのでずっと動く。負荷を抑えるため、1 フレーム 3 本のパスを 1 回ずつ
-        // stroke するだけにし、30fps に間引き、タブが隠れたら止める。
+        // 背景なのでずっと動く。負荷を抑えるため、1 フレームで stroke するパスを 9 本に収め、
+        // 30fps に間引き、タブが隠れたら止める。
         // 動きを減らす設定のときは、止まった絵を 1 枚だけ描く。
         (() => {
             const c = document.getElementById('lines');
             if (!c || !c.getContext) return;
             const ctx = c.getContext('2d');
 
-            const SPACING = 58;          // 平行線の間隔（CSS px）
+            const SPACING = 58;          // 濃い 3 方向の間隔（CSS px）
             const COLOR = '120,170,245'; // 以前の線と同系の青
             const ALPHA = 0.17;        // 0.09 だと地とオーブに負けて見えなかった（実測）
+            const ALPHA_THIN = 0.085;    // 間に入れる 3 方向は濃い線の半分
+            const ALPHA_BOLD = 0.29;     // 濃い方向の 4 本ごとに 1 本だけ強め、粗い格子を重ねる
+            const WIDE = 1.5;            // 薄い 3 方向は間隔を 1.5 倍にして、線を増やしすぎない
+            const EVERY = 4;             // 強める間隔（本）
             const TURN_MS = 420000;      // 全体の回転。1 周 7 分
             const DRIFT_MS = 97000;      // ゆっくり横に揺らす周期
             const FRAME_MS = 33;         // 30fps に間引く
-            // 3 方向それぞれを別の周期で ±5 度ゆらす。60 度の等間隔が崩れ（方向の差は
-            // 50〜70 度の範囲で動く）、三角形がゆがみながら元に戻る。±10 度を超えると
-            // 格子に見えなくなる（Codex 指摘で 5 度から始める）。周期は 2π を掛けて秒で効かせる。
-            const SWING_DEG = 5;
-            const SWING_MS = [23000, 31000, 41000];
-            const SWING_PHASE = [0, 2.1, 4.3];
-            // 間隔も長い周期で ±8% 開いて閉じる。
+            // 30 度ずつの 6 方向。方向は固定する。方向ごとに別々に傾けると 3 方向の関係が
+            // 崩れて格子に見えなくなる（Codex 指摘）ので、動きは全体の回転・間隔の伸縮・
+            // 方向ごとの横すべりだけで作る。
+            const DIRS = 6;
+            // 間隔は長い周期で ±8% 開いて閉じる。
             const BREATH_MS = 67000;
             const BREATH = 0.08;
+            // 方向ごとに、自分の法線方向へ別の速さ・向きですべらせる（交点が動く）。
+            // 1 周で間隔 1 つ分すべり、剰余で折り返すので、何分経っても端に空白は出ない。
+            // 折り返す幅は、濃い方向だけ間隔の 4 つ分にする。間隔 1 つ分で折り返すと
+            // 線の番号が 1 つずれ、強める線が入れ替わって見える（Codex 指摘）。
+            const SLIDE_MS = [37000, -53000, 71000, -83000, 97000, -113000];
 
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
             let dpr = 1, w = 0, h = 0, span = 0;
@@ -360,34 +367,46 @@
                 c.style.height = h + 'px';
                 // 幅と高さを入れ直すと状態が消えるので、ここで引き直す。
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                ctx.strokeStyle = 'rgba(' + COLOR + ',' + ALPHA + ')';
                 ctx.lineWidth = 1;         // CSS px で 1 本（実画素 1 本だと細くて消える）
-                // 回しても角が出ないよう、対角線より長く取る。
-                span = Math.hypot(w, h) + SPACING * 4;
+                // 回しても角が出ないよう、対角線より長く取る（間隔はいちばん広いものに合わせる）。
+                span = Math.hypot(w, h) + SPACING * WIDE * 4;
             }
 
             function paint(ms) {
                 const angle = (ms / TURN_MS) * Math.PI * 2;
                 const drift = Math.sin((ms / DRIFT_MS) * Math.PI * 2) * (SPACING / 2);
-                const gap = SPACING * (1 + BREATH * Math.sin((ms / BREATH_MS) * Math.PI * 2));
+                const breath = 1 + BREATH * Math.sin((ms / BREATH_MS) * Math.PI * 2);
                 const half = span / 2;
 
                 ctx.clearRect(0, 0, w, h);
                 ctx.save();
                 ctx.translate(w / 2 + drift, h / 2 - drift * 0.6);
                 ctx.rotate(angle);
-                // 0 / 60 / 120 度の 3 方向。各方向をまとめて 1 本のパスにして 1 回で描く。
-                for (let k = 0; k < 3; k++) {
-                    const swing = (SWING_DEG * Math.PI / 180) *
-                                  Math.sin((ms / SWING_MS[k]) * Math.PI * 2 + SWING_PHASE[k]);
+                // 0 / 30 / 60 / 90 / 120 / 150 度。偶数番が濃い 3 方向（元の三角格子）、
+                // 奇数番がその間に入る薄い 3 方向。濃さと間隔が交互なので、細かい格子と
+                // 粗い格子が重なって見える。方向ごとに 1〜2 本のパスにまとめて描く。
+                for (let k = 0; k < DIRS; k++) {
+                    const main = k % 2 === 0;
+                    const gap = SPACING * (main ? 1 : WIDE) * breath;
+                    const slide = (ms / SLIDE_MS[k]) * gap % (gap * (main ? EVERY : 1));
                     ctx.save();
-                    ctx.rotate(k * Math.PI / 3 + swing);
+                    ctx.rotate(k * Math.PI / DIRS);
                     const path = new Path2D();
-                    for (let y = -half; y <= half; y += gap) {
-                        path.moveTo(-half, y);
-                        path.lineTo(half, y);
+                    const bold = main ? new Path2D() : null;
+                    const from = Math.ceil((-half - slide) / gap);
+                    const to = Math.floor((half - slide) / gap);
+                    for (let i = from; i <= to; i++) {
+                        const y = slide + i * gap;
+                        const p = (bold && i % EVERY === 0) ? bold : path;
+                        p.moveTo(-half, y);
+                        p.lineTo(half, y);
                     }
+                    ctx.strokeStyle = 'rgba(' + COLOR + ',' + (main ? ALPHA : ALPHA_THIN) + ')';
                     ctx.stroke(path);
+                    if (bold) {
+                        ctx.strokeStyle = 'rgba(' + COLOR + ',' + ALPHA_BOLD + ')';
+                        ctx.stroke(bold);
+                    }
                     ctx.restore();
                 }
                 ctx.restore();
