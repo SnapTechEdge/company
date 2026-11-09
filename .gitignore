@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+.claude/
+
+# 秘密の値（このリポジトリは公開しているので、誤って commit しないようにする）
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
