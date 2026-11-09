@@ -12,8 +12,8 @@
 # --- /index.html を / に統一 (Google の重複判定対策) ---
 /index.html / 301
 
-# --- pages.dev URL → 本ドメインへ ---
-# Cloudflare Pages の自動生成 URL (company-7dv.pages.dev) を本ドメイン
-# (snaptechedge.com) へ 301。各デプロイのプレビュー URL も対象。
-https://company-7dv.pages.dev/* https://snaptechedge.com/:splat 301
-https://:hash.company-7dv.pages.dev/* https://snaptechedge.com/:splat 301
+# --- pages.dev URL について ---
+# ここに書いていたホスト指定の 2 行は効いていなかった（pages.dev が 301 でなく 200 を
+# 返していた）。_redirects の転送元はファイルパスだけで、ホスト名は見ないため。
+# 検索結果に出さない対処は _headers 側（X-Robots-Tag: noindex）に移した。
+# https://developers.cloudflare.com/pages/configuration/redirects/

@@ -1,3 +1,15 @@
+# Cloudflare が自動で配る pages.dev の複製を検索結果に出さない。
+# 本ドメインと同じ中身が 200 で返るため、Google が「代替ページ（適切な canonical タグあり）」
+# として拾っていた（canonical は効いているので本体は正しく登録されている）。
+# _redirects はパスしか見ずホスト指定が効かないので、公式案内どおり _headers で noindex を付ける。
+# https://developers.cloudflare.com/pages/configuration/headers/
+# ここに snaptechedge.com を含めないこと（付けると本体が検索から消える）。
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
